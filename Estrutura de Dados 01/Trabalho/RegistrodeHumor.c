@@ -4,9 +4,11 @@
 #include "RegistrodeHumor.h"
 #include "ListaDuplamenteEnc.h"
 
-void limparBuffer() {
+void limparBuffer()
+{
     int c;
-    while ((c = getchar()) != '\n' && c != EOF);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
 }
 
 RegistroHumor *criarRegistro(NoLista **l)
@@ -43,10 +45,10 @@ RegistroHumor *criarRegistro(NoLista **l)
         printf("5 - ESTRESSADO\n");
         printf("6 - NEUTRO\n");
         printf("Digite o humor do dia: ");
-        char linha[100];
-        limparBuffer();
-        fgets(linha, sizeof(linha), stdin);
-        sscanf(linha, "%d", &temp_humor);
+        // char linha[100];
+        // limparBuffer();
+        // fgets(linha, sizeof(linha), stdin);
+        scanf("%d", &temp_humor);
 
         if (temp_humor >= FELIZ && temp_humor <= NEUTRO)
         {
@@ -66,17 +68,18 @@ RegistroHumor *criarRegistro(NoLista **l)
         int nota;
         char linhaNota[100];
         printf("Insira a nota do dia (0 a 10): ");
-        limparBuffer();
-        fgets(linhaNota, sizeof(linhaNota), stdin);
-        sscanf(linhaNota, "%d", &nota);
+        // limparBuffer();
+        // fgets(linhaNota, sizeof(linhaNota), stdin);
+        scanf("%d", &nota);
 
-        while (nota < 0 || nota > 10){
+        while (nota < 0 || nota > 10)
+        {
             printf("Nota inválida. Digite um valor entre 0 e 10: ");
-            limparBuffer();
-            fgets(linhaNota, sizeof(linhaNota), stdin);
-            sscanf(linhaNota, "%d", &nota);
+            // limparBuffer();
+            // fgets(linhaNota, sizeof(linhaNota), stdin);
+            scanf("%d", &nota);
         }
-        
+
         novo->notadoDia = nota;
 
         return novo;

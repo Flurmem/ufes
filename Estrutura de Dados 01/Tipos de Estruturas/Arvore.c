@@ -114,7 +114,7 @@ Arvore* remover(Arvore* a, int v) {
                 Arvore* t = a;
                 a = a->dir;
                 free(t);
-            }//                else if(a->esq != NULL & a->dir != NULL)
+            }
             else {
                 Arvore *t = a->esq;
                 while (t->dir != NULL) {

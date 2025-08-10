@@ -221,14 +221,16 @@ void mostraMotivosPorHumor(NoLista **l, int h)
         printf("Nao ha registros\n\n");
 }
 
-void liberarListaCompleta(NoLista **l) {
+void liberarListaCompleta(NoLista **l)
+{
     NoLista *atual = *l;
     NoLista *posterior;
-    while (atual != NULL) {
-        posterior = atual->prox; 
-        free(atual);        
-        atual = posterior;       
+    while (atual != NULL)
+    {
+        posterior = atual->prox;
+        free(atual);
+        atual = posterior;
     }
-    *l = NULL; 
-    printf("Lista liberada com sucesso.\n"); 
+    *l = NULL;
+    printf("Lista liberada com sucesso.\n");
 }

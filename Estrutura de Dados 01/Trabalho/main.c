@@ -22,11 +22,13 @@ int exibirMenu()
     printf("----------------------------------------------\n");
 
     printf("Escolha uma opcao: ");
-    char buffer[100];
-    limparBuffer();
-    fgets(buffer, sizeof(buffer), stdin);
     int opcao;
-    sscanf(buffer, "%d", &opcao);
+    scanf("%d", &opcao);
+    // char buffer[100];
+    // limparBuffer();
+    // fgets(buffer, sizeof(buffer), stdin);
+    // int opcao;
+    // scanf(buffer, "%d", &opcao);
     return opcao;
 }
 
@@ -41,6 +43,7 @@ int main()
     int c;
 
     while (opcao != 8)
+
     {
         if ((opcao >= 1) && (opcao <= 8))
         {
@@ -71,7 +74,6 @@ int main()
                 removeRegistroPorID(&lista, id);
                 break;
             }
-
             case 3:
             {
                 int humorBusca;
@@ -96,10 +98,10 @@ int main()
                 buscaRegistroPorHumor(&lista, humorBusca);
                 break;
             }
-            case 4:
+            case 4:{
                 imprimeRegistros(&lista);
                 break;
-
+            }
             case 5:
             {
                 int qtdDias;
@@ -111,7 +113,6 @@ int main()
                 mostraMediaNota(&lista, qtdDias);
                 break;
             }
-
             case 6:
             {
                 int dias;
@@ -124,7 +125,6 @@ int main()
                 mostraHumorMaisFrequente(&lista, dias);
                 break;
             }
-
             case 7:
             {
                 int humor;
@@ -136,17 +136,18 @@ int main()
                 mostraMotivosPorHumor(&lista, humor);
                 break;
             }
-            opcao = exibirMenu();
             }
         }
 
         else
         {
             printf("Insira uma opcao valida para o menu:  ");
-            opcao = exibirMenu();
         }
+        opcao = exibirMenu();
     }
+    
     liberarListaCompleta(&lista);
+
     printf("Encerrando o programa. ");
     return 0;
 }
