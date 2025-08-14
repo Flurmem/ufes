@@ -18,7 +18,6 @@ RegistroHumor *criarRegistro(NoLista **l)
 
     if (novo != NULL)
     {
-
         if (estaVazia(l))
         {
             novo->id = 1;
@@ -90,6 +89,19 @@ RegistroHumor *criarRegistro(NoLista **l)
         printf("Nao foi possivel alocar espaço");
         return NULL;
     }
+}
+
+RegistroHumor *criarRegistroLido(int id, char *data, Humor humor, char *motivo, int nota)
+{
+    RegistroHumor *novo = (RegistroHumor *)malloc(sizeof(RegistroHumor));
+
+    novo->id = id;
+    strcpy(novo->data, data);
+    novo->humor = humor;
+    strcpy(novo->motivo, motivo);
+    novo->notadoDia = nota;
+
+    return novo;
 }
 
 void imprimeRegistro(RegistroHumor *r)

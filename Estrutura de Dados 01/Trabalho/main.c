@@ -24,11 +24,6 @@ int exibirMenu()
     printf("Escolha uma opcao: ");
     int opcao;
     scanf("%d", &opcao);
-    // char buffer[100];
-    // limparBuffer();
-    // fgets(buffer, sizeof(buffer), stdin);
-    // int opcao;
-    // scanf(buffer, "%d", &opcao);
     return opcao;
 }
 
@@ -36,16 +31,37 @@ int main()
 {
     system("chcp 65001 > nul");
     setlocale(LC_ALL, "pt_BR.UTF-8");
+
     NoLista *lista;
     criarLista(&lista);
+
+    //  Lendo os registros salvos ----------------------------------------------
+
+    FILE *dadosR;
+    dadosR = fopen("dados.txt", "r");
+
+    if (dadosR == NULL)
+    {
+        printf("Erro! Nao foi possivel abrir o arquivo.\n");
+        return 1; //
+    }
+
+    int idR, humorR, notaR;
+    char dataR[11], motivoR[100];
+    while (fscanf(dadosR, "%d;%[^;];%d;%[^;];%d\n", &idR, dataR, &humorR, motivoR, &notaR) == 5)
+    {
+        RegistroHumor *registro = criarRegistroLido(idR, dataR, humorR, motivoR, notaR);
+        inserirElementoFim(&lista, *registro);
+    }
+
+    // ---------------------------------------------------------------------------------------------
 
     int opcao = exibirMenu();
     int c;
 
     while (opcao != 8)
-
     {
-        if ((opcao >= 1) && (opcao <= 8))
+        if ((opcao >= 1) && (opcao < 8))
         {
             switch (opcao)
             {
@@ -98,7 +114,8 @@ int main()
                 buscaRegistroPorHumor(&lista, humorBusca);
                 break;
             }
-            case 4:{
+            case 4:
+            {
                 imprimeRegistros(&lista);
                 break;
             }
@@ -145,7 +162,15 @@ int main()
         }
         opcao = exibirMenu();
     }
-    
+
+    // Salvando os registros
+    FILE *dadosW;
+    dadosW = fopen("dados.txt", "w");
+    for (NoLista *aux = lista; aux != NULL; aux = aux->prox)
+    {
+        fprintf(dadosW, "%d;%s;%d;%s;%d\n", aux->info.id, aux->info.data, aux->info.humor, aux->info.motivo, aux->info.notadoDia);
+    }
+    //-----------------------------
     liberarListaCompleta(&lista);
 
     printf("Encerrando o programa. ");

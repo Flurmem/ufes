@@ -23,6 +23,8 @@ typedef struct humor
 
 RegistroHumor *criarRegistro();
 
+RegistroHumor *criarRegistroLido(int id, char *data, Humor humor, char *motivo, int nota);
+
 void imprimeRegistro(RegistroHumor *r);
 
 void liberarRegistro(RegistroHumor *r);
