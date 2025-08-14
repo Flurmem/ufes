@@ -4,6 +4,7 @@
 //
 //typedef struct arvore {
 //    int info;
+//    int fatBal;
 //    struct arvore* dir;
 //    struct arvore* esq;
 //} Arvore;
@@ -11,6 +12,68 @@
 //Arvore* criarArvoreVazia() {
 //    return NULL;
 //
+//}
+//
+//void rotacaoRR(arvore** L){
+//    Arvore *temp;
+//    int fat = (*L)->fatBal;
+//    
+//    temp = (*L);
+//    (*L) = temp->esq;
+//    temp->esq = (*L)->dir;
+//    (*L)->dir = temp;
+//    
+//    if(fat==-2){
+//        if*=((*L)->fatBal==-1){
+//            (*L)->fatBal = temp->fatBal = 0;
+//        }
+//        else{
+//            temp->fatBal = -1;
+//            (*L)->fatBal = 1;
+//        }
+//    }
+//    else{
+//        if((*L)->fatBal ==0){
+//            
+//            (*L)->fatBal = 1;
+//            temp->fatBal = 0;
+//        }
+//        else{
+//            (*L)->fatBal =0;
+//            temp->fatBal =0;
+//        }
+//    }
+//}
+//
+//void rotacaoLR(arvore** L){
+//    Arvore *temp;
+//    int fat = (*L)->fatBal;
+//    
+//    temp = (*L);
+//    (*L) = temp->dir;
+//    temp->dir = (*L)->esq;
+//    (*L)->esq = temp;
+//    
+//    if(fat==2){
+//        if*=((*L)->fatBal==1){
+//            (*L)->fatBal = temp->fatBal = 0;
+//        }
+//        else{
+//            temp->fatBal = -1;
+//            (*L)->fatBal = 1;
+//        }
+//    }
+//    else{
+//        if((*L)->fatBal ==0){
+//            
+//            (*L)->fatBal = -1;
+//            temp->fatBal = 0;
+//        }
+//        else{
+//            (*L)->fatBal =0;
+//            temp->fatBal =0;
+//        }
+//    }
 //}
 //
 //Arvore* criarArvore(int c, Arvore* sae, Arvore* sad) {
@@ -31,7 +94,7 @@
 //void imprimeArvore(Arvore* arv) {
 //    printf("<");
 //    if (!estaVazia(arv)) {
-//        printf("%d", arv->info);
+//        printf("%d\n", arv->info);
 //        imprimeArvore(arv->esq);
 //        imprimeArvore(arv->dir);
 //    }
@@ -133,15 +196,21 @@
 //int main() {
 //    //  Nó Raiz 
 //    Arvore* a = NULL;
-//    a = insere(a, 5);
-//    a = insere(a, 6);
-//    a = insere(a, 7);
-//    a = insere(a, 8);
 //    a = insere(a, 9);
-//    a = remover(a, 9);
-//    a = remover(a, 5);
+//    a = insere(a, 8);
+//    a = insere(a, 7);
+//    a = insere(a, 6);
+//    a = insere(a, 1);
+//    a = insere(a, 2);
+//    a = insere(a, 3);
+//    a = insere(a, 4);
+//    a = insere(a, 5);
+//    imprimeArvore(a);
+//    printf("\n\n\n");, 
+//    
+//    a = remover(a, 6);
+//    a = remover(a, 8);
 //
 //    imprimeArvore(a);
-//
 //    return 0;
 //}
