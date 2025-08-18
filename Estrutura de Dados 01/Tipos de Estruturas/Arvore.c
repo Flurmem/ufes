@@ -277,24 +277,30 @@ int maiorNum(Arvore *a)
 //     return 1 + qtdNumArvTerciaria(a->dir) + qtdNumArvTerciaria(a->esq) + qtdNumArvTerciaria(a->meio);
 // }
 
+void imprimeFolhasDecrescente(Arvore *a){
+    if(!estaVazia(a)){
+        if(estaVazia(a->esq) && estaVazia(a->dir)){
+        printf("%d ", a->info);
+    }
+        else{
+            imprimeFolhasDecrescente(a->dir);
+            imprimeFolhasDecrescente(a->esq);
+        }
+
+    }
+
+
+
+}
+
 int main()
 {
     //  Nó Raiz
     Arvore *a = NULL;
-    Arvore *b = NULL;
     a = insere(a, 5);
     a = insere(a, 6);
-    a = insere(a, 44);
-    a = insere(a, 344);
-    a = insere(a, 56);
-    a = insere(a, 343);
-    a = insere(a, 77);
+    imprimeFolhasDecrescente(a);
 
-    int maior = maiorNum(a);
-    printf("O maior num de e: %d", maior);
-
-    // int iguais = compara(a, b);
-    // printf("As arvores sao %s, pois o valor deu %d", iguais == 1 ? "iguais" : "diferentes", iguais);
 
     return 0;
 }
