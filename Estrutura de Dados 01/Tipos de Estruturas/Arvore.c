@@ -116,20 +116,34 @@ Arvore *busca(Arvore *a, int v)
     }
 }
 
-Arvore *insere(Arvore *a, int v)
-{
-    if (estaVazia(a))
-    {
-        a = (Arvore *)malloc(sizeof(Arvore));
+Arvore* insere(Arvore* a, int v){
+    if(estaVazia(a)){
+        a = (Arvore*) malloc(sizeof(Arvore));
         a->info = v;
-        a->esq = a->dir = NULL;
+        a->dir=a->esq=NULL;
     }
-    else if (v < a->info)
-        a->esq = insere(a->esq, v);
     else
-        a->dir = insere(a->dir, v);
+        if(v < a->info){
+            a->esq = insere(a->esq, v);
+        }
+        else
+            a->dir = insere(a->dir, v);
     return a;
 }
+// Arvore *insere(Arvore *a, int v)
+// {
+//     if (estaVazia(a))
+//     {
+//         a = (Arvore *)malloc(sizeof(Arvore));
+//         a->info = v;
+//         a->esq = a->dir = NULL;
+//     }
+//     else if (v < a->info)
+//         a->esq = insere(a->esq, v);
+//     else
+//         a->dir = insere(a->dir, v);
+//     return a;
+// }
 
 Arvore *remover(Arvore *a, int v)
 {
@@ -269,6 +283,28 @@ int maiorNum(Arvore *a)
     return maior;
 }
 
+int alturaArv(Arvore *a){
+    if(estaVazia(a)) return -1;
+
+    else{
+        int altEsq = alturaArv(a->esq);
+        int altDir = alturaArv(a->dir);
+        if (altEsq > altDir){
+            return 1 + altEsq;
+        }
+        else 
+        return 1 + altDir;
+    }
+}
+
+int somaValores(Arvore* a){
+    if(estaVazia(a)){
+        return 0;
+    }
+    else
+    return a->info + somaValores(a->esq) + somaValores(a->dir);
+}
+
 // int qtdNumArvTerciaria(Arvore *a){
 //     if(estaVazia(a)){
 //         return 0;
@@ -277,24 +313,43 @@ int maiorNum(Arvore *a)
 //     return 1 + qtdNumArvTerciaria(a->dir) + qtdNumArvTerciaria(a->esq) + qtdNumArvTerciaria(a->meio);
 // }
 
+void imprimeNivel(Arvore* a, int n){
+    if(estaVazia(a)){
+        return;
+    }
+    if(n==0){
+        printf("%d ", a->info);
+    }
+    else{
+        imprimeNivel(a->esq, (n-1));
+        imprimeNivel(a->dir, (n-1));
+    }
+}
+
+int menorValor(Arvore* a){
+
+    if((estaVazia(a->esq))){
+        return a->info;
+    }
+    else return menorValor(a->esq);
+}
+
 int main()
 {
     //  Nó Raiz
     Arvore *a = NULL;
     Arvore *b = NULL;
+    a = insere(a, 4);
+    a = insere(a, 3);
+    a = insere(a, 1);
+    a = insere(a, 2);
     a = insere(a, 5);
-    a = insere(a, 6);
-    a = insere(a, 44);
-    a = insere(a, 344);
-    a = insere(a, 56);
-    a = insere(a, 343);
-    a = insere(a, 77);
+    a = insere(a, 7);
+    a = insere(a, 8);
+    
 
-    int maior = maiorNum(a);
-    printf("O maior num de e: %d", maior);
-
-    // int iguais = compara(a, b);
-    // printf("As arvores sao %s, pois o valor deu %d", iguais == 1 ? "iguais" : "diferentes", iguais);
+    int valor = menorValor(a);
+    printf("%d", valor);
 
     return 0;
 }

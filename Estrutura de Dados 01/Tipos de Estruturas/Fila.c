@@ -39,7 +39,6 @@ void inserir(Fila *f, float v)
     }
     else
     {
-        NoLista *ult;
         f->fim->prox = novo;
         f->fim = novo;
     }
