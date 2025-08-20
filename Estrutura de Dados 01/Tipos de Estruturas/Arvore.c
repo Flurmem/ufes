@@ -116,18 +116,20 @@ Arvore *busca(Arvore *a, int v)
     }
 }
 
-Arvore* insere(Arvore* a, int v){
-    if(estaVazia(a)){
-        a = (Arvore*) malloc(sizeof(Arvore));
+Arvore *insere(Arvore *a, int v)
+{
+    if (estaVazia(a))
+    {
+        a = (Arvore *)malloc(sizeof(Arvore));
         a->info = v;
-        a->dir=a->esq=NULL;
+        a->dir = a->esq = NULL;
+    }
+    else if (v < a->info)
+    {
+        a->esq = insere(a->esq, v);
     }
     else
-        if(v < a->info){
-            a->esq = insere(a->esq, v);
-        }
-        else
-            a->dir = insere(a->dir, v);
+        a->dir = insere(a->dir, v);
     return a;
 }
 // Arvore *insere(Arvore *a, int v)
@@ -283,26 +285,32 @@ int maiorNum(Arvore *a)
     return maior;
 }
 
-int alturaArv(Arvore *a){
-    if(estaVazia(a)) return -1;
+int alturaArv(Arvore *a)
+{
+    if (estaVazia(a))
+        return -1;
 
-    else{
+    else
+    {
         int altEsq = alturaArv(a->esq);
         int altDir = alturaArv(a->dir);
-        if (altEsq > altDir){
+        if (altEsq > altDir)
+        {
             return 1 + altEsq;
         }
-        else 
-        return 1 + altDir;
+        else
+            return 1 + altDir;
     }
 }
 
-int somaValores(Arvore* a){
-    if(estaVazia(a)){
+int somaValores(Arvore *a)
+{
+    if (estaVazia(a))
+    {
         return 0;
     }
     else
-    return a->info + somaValores(a->esq) + somaValores(a->dir);
+        return a->info + somaValores(a->esq) + somaValores(a->dir);
 }
 
 // int qtdNumArvTerciaria(Arvore *a){
@@ -313,43 +321,57 @@ int somaValores(Arvore* a){
 //     return 1 + qtdNumArvTerciaria(a->dir) + qtdNumArvTerciaria(a->esq) + qtdNumArvTerciaria(a->meio);
 // }
 
-void imprimeNivel(Arvore* a, int n){
-    if(estaVazia(a)){
+void imprimeNivel(Arvore *a, int n)
+{
+    if (estaVazia(a))
+    {
         return;
     }
-    if(n==0){
+    if (n == 0)
+    {
         printf("%d ", a->info);
     }
-    else{
-        imprimeNivel(a->esq, (n-1));
-        imprimeNivel(a->dir, (n-1));
+    else
+    {
+        imprimeNivel(a->esq, (n - 1));
+        imprimeNivel(a->dir, (n - 1));
     }
 }
 
-int menorValor(Arvore* a){
+int menorValor(Arvore *a)
+{
 
-    if((estaVazia(a->esq))){
+    if ((estaVazia(a->esq)))
+    {
         return a->info;
     }
-    else return menorValor(a->esq);
+    else
+        return menorValor(a->esq);
+}
+
+void imprimeFolhasDecrescente(Arvore *a)
+{
+    if (!estaVazia(a))
+    {
+        if (estaVazia(a->esq) && estaVazia(a->dir))
+        {
+            printf("%d ", a->info);
+        }
+        else
+        {
+            imprimeFolhasDecrescente(a->dir);
+            imprimeFolhasDecrescente(a->esq);
+        }
+    }
 }
 
 int main()
 {
     //  Nó Raiz
     Arvore *a = NULL;
-    Arvore *b = NULL;
-    a = insere(a, 4);
-    a = insere(a, 3);
-    a = insere(a, 1);
-    a = insere(a, 2);
     a = insere(a, 5);
-    a = insere(a, 7);
-    a = insere(a, 8);
-    
-
-    int valor = menorValor(a);
-    printf("%d", valor);
+    a = insere(a, 6);
+    imprimeFolhasDecrescente(a);
 
     return 0;
 }
