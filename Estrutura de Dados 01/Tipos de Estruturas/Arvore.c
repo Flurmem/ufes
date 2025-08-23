@@ -365,13 +365,60 @@ void imprimeFolhasDecrescente(Arvore *a)
     }
 }
 
+int iguais(Arvore *a, Arvore *b)
+{
+    if (estaVazia(a) && estaVazia(b))
+        return 1;
+    else
+    {
+        if (estaVazia(a) || estaVazia(b))
+        {
+            return 0;
+        }
+        else
+        {
+            if (a->info == b->info)
+            {
+                return iguais(a->esq, b->esq) && iguais(a->dir, b->dir);
+            }
+            else
+                return 0;
+        }
+    }
+}
+
+Arvore* maior(Arvore* a){
+    if(estaVazia(a->dir)) return a;
+    return maior(a->dir);
+}
+
+Arvore* espelha(Arvore *a){
+    if(estaVazia(a))return NULL;
+    else{
+        Arvore* novo = (Arvore*) malloc(sizeof(Arvore));
+        novo->info = a->info;
+        novo->dir = espelha(a->esq);
+        novo->esq = espelha(a->dir);
+        return novo;
+    }
+}
+
 int main()
 {
     //  Nó Raiz
     Arvore *a = NULL;
+    Arvore *b = NULL;
     a = insere(a, 5);
     a = insere(a, 6);
-    imprimeFolhasDecrescente(a);
+    a = insere(a, 6);
+    a = insere(a, 6);
+    a = insere(a, 6434);
+    b = espelha(a);
+    imprimeArvore(b);
+    printf("\n");
+    imprimeArvore(a);
+    
 
+    // printf("Maior : %d", maior(a)->info);
     return 0;
 }

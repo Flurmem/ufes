@@ -129,8 +129,23 @@ void concatenaRecursiva(Pilha *p1, Pilha *p2)
     p1->topo = primeiroP2;
 }
 
-void concatenaPuro(Pilha *p1, Pilha *p2)
-{
+int diferentes(Pilha *p1, Pilha *p2){
+    if(p1==NULL && p2 == NULL){
+        return 0;
+    }
+
+    else if (p1!=NULL && p2!=NULL){
+        NoLista *a1 = NULL, *a2 = NULL;
+        for(a1 = p1->topo, a2=p2->topo; a1!=NULL && a2!= NULL; a1=a1->prox, a2=a2->prox){
+            if(a1->info!=a2->info){
+                return 1;
+            }   
+        }
+        if(a1==NULL && a2 == NULL){
+            return 0;
+        }
+        else return 1;
+    }
 }
 
 int main()
@@ -141,14 +156,11 @@ int main()
     imprime(pilha);
 
     Pilha *pilha2 = criarPilha();
-    push(pilha2, 5);
-    push(pilha2, 6);
-    push(pilha2, 9);
-    push(pilha2, 8);
+
     imprime(pilha2);
 
-    concatenaRecursiva(pilha, pilha2);
-    imprime(pilha);
+    int ediferente = diferentes(pilha, pilha2);
+    printf("As pilhas sao diferentes: %d", ediferente);
 
     return 0;
 };

@@ -215,24 +215,40 @@ void combinarFilasRecursiva(Fila *f, Fila *f1, Fila *f2)
     // free(tempf2);
 }
 
+void divideFilas(Fila *f, Fila *f1, Fila *f2, float n){
+    NoLista *p;
+    for(p=f->ini; p!=NULL && p->info!=n; p=p->prox);
+    if(p!=NULL){
+        f2->fim = f->fim;
+        f2->ini = p->prox;
+
+        f1->ini = f->ini;
+        f1->fim = p;
+        f1->fim->prox = NULL;
+
+        f->ini = f->fim = NULL;
+
+    }else printf("Elemento nao encontrado");
+}
+
+
 int main()
 {
     Fila *fila = criarFila();
+    Fila *fila1 = criarFila();
     Fila *fila2 = criarFila();
-    Fila *fila3 = criarFila();
 
     inserir(fila, 11);
     inserir(fila, 12);
-
-    inserir(fila2, 40);
-    inserir(fila2, 50);
+    inserir(fila, 13);
+    inserir(fila, 14);
 
     imprime(fila);
-    imprime(fila2);
 
-    combinarFilasRecursiva(fila3, fila, fila2);
-    printf("\n\nFila nova: ");
-    imprime(fila3);
+    divideFilas(fila, fila1, fila2, 11);
+
+    imprime(fila1);
+    imprime(fila2);
 
     return 0;
 };
