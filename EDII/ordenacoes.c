@@ -81,6 +81,7 @@ void ordenaDireta(int *vetor, int n){
 }
 
 void shellSort(int *vetor, int n){
+    int comparacoes = 0;
 
     int gap = 1;
     while ( gap < n){
@@ -91,6 +92,7 @@ void shellSort(int *vetor, int n){
             int aux = vetor[i];
             int j = i - gap;
             while (j>=0 && aux < vetor[j]){
+                comparacoes++;
                 vetor[j+gap] = vetor[j];
                 j = j - gap;
             }
@@ -98,23 +100,27 @@ void shellSort(int *vetor, int n){
         }
         gap = gap/3;
     }
-    
+    printf("N comparacoes: %d", comparacoes);
 }
 
 void selectionSort(int *vetor, int n){
+    int comparacoes = 0;
     for(int i = 0; i<n-1; i++){
         int menor = i;
         for (int j=i+1; j<n; j++){
             if (vetor[j] < vetor[menor]){
+                comparacoes++;
                 menor = j;
             }
         }
         if(i!=menor){
+            comparacoes++;
             int aux = vetor[i];
             vetor[i] = vetor[menor];
             vetor[menor] = aux;
         }
     }
+    printf("N comparacoes: %d", comparacoes);
 }
 
 int main()
