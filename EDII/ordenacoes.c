@@ -123,6 +123,27 @@ void selectionSort(int *vetor, int n){
     printf("N comparacoes: %d", comparacoes);
 }
 
+void criaHeap(int *vetor, int inicio, int final){
+    int aux = v[inicio];
+    int j = inicio*2 + 1;[
+        while(j<=final){
+            if(j<final){
+                if(v[j]<v[j+1]){
+                    j=j+1;
+                }
+            }
+            if(aux<v[j]){
+                v[inicio] = v[j];
+                inicio = j;
+                j=2*inicio+1;
+            }
+        }
+    ]
+}
+
+void heapSort(int *vetor, int n){
+
+}
 int main()
 {
     int vetor[] = {5,4,3,1,7,2};
