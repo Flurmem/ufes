@@ -144,6 +144,43 @@ void criaHeap(int *vetor, int inicio, int final){
 void heapSort(int *vetor, int n){
 
 }
+
+void particao(int esq, int dir, int vetor[]){
+    int i = esq;
+    int j = dir;
+    int pivo = vetor[(i+j)/2];
+
+    while(i<=j){
+        while(vetor[i]<pivo && i<dir){
+            i++;
+        }
+        while(vetor[j]>pivo && j>esq){
+            j--;
+        }
+        if(i<=j){
+            int aux = vetor[i];
+            vetor[i] = vetor[j];
+            vetor[j] = aux;
+            i++; j--;
+            // 4 7 6 2 3 8
+            // i = 1, j=4; aux = 7, [1] = [4](3), [4]() = [aux]
+        }
+    }
+}
+
+void quicksort(int vetor[], int n){
+    int i, j;
+    particao(0, n-1, i, j);
+
+    if(j > esq){
+        quickSort(vetor, esq, j);
+    }
+    if(i < dir){
+        quickSort(vetor, i, dir);
+    }
+}
+
+
 int main()
 {
     int vetor[] = {5,4,3,1,7,2};
