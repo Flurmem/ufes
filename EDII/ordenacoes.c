@@ -123,63 +123,93 @@ void selectionSort(int *vetor, int n){
     printf("N comparacoes: %d", comparacoes);
 }
 
-void criaHeap(int *vetor, int inicio, int final){
-    int aux = v[inicio];
-    int j = inicio*2 + 1;[
-        while(j<=final){
-            if(j<final){
-                if(v[j]<v[j+1]){
-                    j=j+1;
-                }
-            }
-            if(aux<v[j]){
-                v[inicio] = v[j];
-                inicio = j;
-                j=2*inicio+1;
-            }
+// void criaHeap(int *vetor, int inicio, int final){
+//     int aux = v[inicio];
+//     int j = inicio*2 + 1;[
+//         while(j<=final){
+//             if(j<final){
+//                 if(v[j]<v[j+1]){
+//                     j=j+1;
+//                 }
+//             }
+//             if(aux<v[j]){
+//                 v[inicio] = v[j];
+//                 inicio = j;
+//                 j=2*inicio+1;
+//             }
+//         }
+//     ]
+// }
+
+// void heapSort(int *vetor, int n){
+
+// }
+
+// void particao(int esq, int dir, int vetor[]){
+//     int i = esq;
+//     int j = dir;
+//     int pivo = vetor[(i+j)/2];
+
+//     while(i<=j){
+//         while(vetor[i]<pivo && i<dir){
+//             i++;
+//         }
+//         while(vetor[j]>pivo && j>esq){
+//             j--;
+//         }
+//         if(i<=j){
+//             int aux = vetor[i];
+//             vetor[i] = vetor[j];
+//             vetor[j] = aux;
+//             i++; j--;
+//             // 4 7 6 2 3 8
+//             // i = 1, j=4; aux = 7, [1] = [4](3), [4]() = [aux]
+//         }
+//     }
+// }
+
+// void quicksort(int vetor[], int n){
+//     int i, j;
+//     particao(0, n-1, i, j);
+
+//     if(j > esq){
+//         quickSort(vetor, esq, j);
+//     }
+//     if(i < dir){
+//         quickSort(vetor, i, dir);
+//     }
+// }
+
+void intercalar(int vetor[], int inicio, int meio, int final){
+    int i = inicio; int j = meio + 1; int k=0;
+    int tamanho = final - inicio + 1;
+    int temp[tamanho];
+    while( i <=meio || j<=final){
+
+        if ( i == meio + 1 || (vetor[j] < vetor[i] && j!=final+1)){
+        temp[k] = vetor[j];
+            j++;
+            k++;
         }
-    ]
-}
-
-void heapSort(int *vetor, int n){
-
-}
-
-void particao(int esq, int dir, int vetor[]){
-    int i = esq;
-    int j = dir;
-    int pivo = vetor[(i+j)/2];
-
-    while(i<=j){
-        while(vetor[i]<pivo && i<dir){
+        else{
+        temp[k] = vetor[i];
             i++;
+            k++;
         }
-        while(vetor[j]>pivo && j>esq){
-            j--;
-        }
-        if(i<=j){
-            int aux = vetor[i];
-            vetor[i] = vetor[j];
-            vetor[j] = aux;
-            i++; j--;
-            // 4 7 6 2 3 8
-            // i = 1, j=4; aux = 7, [1] = [4](3), [4]() = [aux]
-        }
+    }
+    for (i=inicio; i<=final; i++){
+        vetor[i] = temp[i-inicio];
     }
 }
 
-void quicksort(int vetor[], int n){
-    int i, j;
-    particao(0, n-1, i, j);
-
-    if(j > esq){
-        quickSort(vetor, esq, j);
-    }
-    if(i < dir){
-        quickSort(vetor, i, dir);
+void mergeSort(int vetor[], int inicio, int fim){
+    if (inicio< fim){
+        int meio = (inicio+fim)/2;
+        mergeSort(vetor, inicio, meio);
+        mergeSort(vetor, meio + 1, fim);
+        intercalar(vetor, inicio, meio, fim);
     }
 }
-
 
 int main()
 {
@@ -189,7 +219,7 @@ int main()
         printf("%d ", vetor[i]);
     }
     printf("\n");
-    selectionSort(vetor, 6);
+    mergeSort(vetor,0, 5);
 
     for (int i=0; i<6; i++){
         printf("%d ", vetor[i]);
