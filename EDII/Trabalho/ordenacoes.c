@@ -409,21 +409,3 @@ void bucketSort(int *vetor, int n){
     }
 }
 
-
-
-int main()
-{
-    int vetor[] = {5,4,3,1,7,2};
-
-    for (int i=0; i<6; i++){
-        printf("%d ", vetor[i]);
-    }
-    printf("\n");
-    mergeSort(vetor,0, 5);
-
-    for (int i=0; i<6; i++){
-        printf("%d ", vetor[i]);
-    }
-
-    return 0;
-}
