@@ -4,11 +4,11 @@
 
 //1: aleatoria, 2: crescente, 3: decrescente
 
-int geraNumeros(int vetor[], int tam, int ordem){
+void geraNumeros(int vetor[], int tam, int ordem){
     int i;
     if (ordem == 1){
         for(i=0; i<tam; i++){
-            vetor[i] = rand();
+            vetor[i] = rand() % 500000; 
         }
     }
     else if (ordem == 2){
@@ -25,9 +25,10 @@ int geraNumeros(int vetor[], int tam, int ordem){
 
 void imprimeVetor(int vetor[], int tam){
     int i;
-    printf("Inicio do vetor:\n");
+    printf("\nInicio do vetor:\n");
     for(i = 0; i < tam; i++){
         printf("%d\n", vetor[i]);
     }
     printf("Fim do vetor.\n\n");
 }
+
