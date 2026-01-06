@@ -8,4 +8,6 @@ void geraNumeros(int vetor[], int tam, int ordem);
 // Imprime o vetor, um elemento por linha
 void imprimeVetor(int vetor[], int tam);
 
+void salvarArquivo(int *vetor, int n);
+
 #endif

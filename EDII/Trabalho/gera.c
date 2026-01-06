@@ -32,3 +32,16 @@ void imprimeVetor(int vetor[], int tam){
     printf("Fim do vetor.\n\n");
 }
 
+void salvarArquivo(int *vetor, int n) {
+    FILE *f = fopen("saida.txt", "w");
+    if (f == NULL) {
+        printf("Erro ao criar o arquivo saida.txt\n");
+        return;
+    }
+    
+    for (int i = 0; i < n; i++) {
+        fprintf(f, "%d\n", vetor[i]); // O \n garante "um por linha"
+    }
+    
+    fclose(f);
+}

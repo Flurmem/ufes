@@ -1,0 +1,12 @@
+bolha, -----------
+bolha com criterio de parada, -----------
+insercao direta, ----------
+insercao bin ́aria, -----------
+insercao tern ́aria, ---------------
+shell-sort, ----------
+selecao direta, ----------------
+heapsort, -----------
+quicksort*, 1, 2, 3 -----------------
+mergesort, ------------------
+radixsort -----------
+bucketsort.---------------
