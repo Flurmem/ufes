@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -std=c99
 TARGET = main
-SOURCES = testes.c ordenacoes.c gera.c
+SOURCES = testes.c ordenacoes.c gera.c utils.c
 OBJECTS = $(SOURCES:.c=.o)
 
 all: $(TARGET)

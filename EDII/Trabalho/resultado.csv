@@ -1,0 +1,4 @@
+Algoritmo;Tamanho;Ordem;Comparacoes;Trocas;Tempo(s)
+bolha;10000;1;49995000;24952888;0.128000
+bolha;10000;2;49995000;0;0.070000
+bolha;10000;3;49995000;49995000;0.138000
