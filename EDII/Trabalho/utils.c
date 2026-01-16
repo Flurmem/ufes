@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <sys/stat.h>
+#include <string.h>
 
 #include "ordenacoes.h"
 
@@ -55,41 +56,6 @@ void lerArquivo(char origem[], int ordem, int n, int *vetor)
     fclose(f);
 }
 
-void testar(char algoritmo[], int *vetorOriginal, int n, int ordem)
-{
-    Estatisticas est;
-
-    // 1. CÓPIA DE SEGURANÇA (Crucial!)
-    int *vetorCopia = (int *)malloc(n * sizeof(int));
-    memcpy(vetorCopia, vetorOriginal, n * sizeof(int));
-
-    // 2. EXECUÇÃO
-    clock_t inicio = clock();
-
-    // Seletor de algoritmo...
-    if (strcmp(algoritmo, "bolha") == 0)
-        bolha(vetorCopia, n, &est);
-    // else if ... (outros algoritmos)
-
-    clock_t fim = clock();
-    est.tempo_execucao = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
-
-    printf("| %-15s | %-8d | %-2d | C: %-12lld | T: %-12lld | %fs |\n",
-           algoritmo, n, ordem, est.comparacoes, est.trocas, est.tempo_execucao);
-
-    // 4. SALVAR NO EXCEL (CSV)
-    salvarRelatorio(algoritmo, n, ordem, est);
-
-    // -----------------------------
-
-    // Salvar o arquivo ordenado (opcional, se quiser manter)
-    char caminho[100];
-    sprintf(caminho, "Saida/%s", algoritmo);
-    salvarArquivo(vetorCopia, caminho, ordem, n);
-
-    free(vetorCopia);
-}
-
 void salvarRelatorio(char algoritmo[], int n, int ordem, Estatisticas est)
 {
     char nomeArquivo[] = "resultado.csv";
@@ -118,4 +84,36 @@ void salvarRelatorio(char algoritmo[], int n, int ordem, Estatisticas est)
     fprintf(f, "%s;%d;%d;%lld;%lld;%.6f\n", algoritmo, n, ordem, est.comparacoes, est.trocas, est.tempo_execucao);
 
     fclose(f);
+}
+
+void testar(char algoritmo[], int *vetorOriginal, int n, int ordem)
+{
+    Estatisticas est;
+
+    // 1. CÓPIA DE SEGURANÇA (Crucial!)
+    int *vetorCopia = (int *)malloc(n * sizeof(int));
+    memcpy(vetorCopia, vetorOriginal, n * sizeof(int));
+
+    // 2. EXECUÇÃO
+    clock_t inicio = clock();
+
+    bolha(vetorCopia, n, &est);
+
+    clock_t fim = clock();
+    est.tempo_execucao = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+
+    printf("| %-15s | %-8d | %-2d | C: %-12lld | T: %-12lld | %fs |\n",
+           algoritmo, n, ordem, est.comparacoes, est.trocas, est.tempo_execucao);
+
+    // 4. SALVAR NO EXCEL (CSV)
+    salvarRelatorio(algoritmo, n, ordem, est);
+
+    // -----------------------------
+
+    // Salvar o arquivo ordenado (opcional, se quiser manter)
+    char caminho[100];
+    sprintf(caminho, "Saidas/%s", algoritmo);
+    salvarArquivo(vetorCopia, caminho, ordem, n);
+
+    free(vetorCopia);
 }

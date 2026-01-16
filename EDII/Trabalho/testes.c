@@ -20,39 +20,42 @@ int main()
     }
 
     // Testes de ordenação, para cada tipo de ordem e tamanho
-    // for (int x=0; x<3; x++){ // para cada tamanho
+    for (int x = 0; x < 3; x++)
+    { // para cada tamanho
 
-    for (int o = 1; o <= 3; o++)
-    { // para cada tipo de ordem
+        for (int o = 1; o <= 3; o++) // para cada tipo de ordem
 
-        int *vetorOriginal = (int *)malloc(tamanhos[0] * sizeof(int));
-        if (vetorOriginal == NULL)
         {
-            printf("Erro de memoria para tamanho %d\n", tamanhos[0]);
-            exit(1);
+            int *vetorOriginal = (int *)malloc(tamanhos[x] * sizeof(int));
+            if (vetorOriginal == NULL)
+            {
+                printf("Erro de memoria para tamanho %d\n", tamanhos[0]);
+                exit(1);
+            }
+
+            lerArquivo("Origem/input", o, tamanhos[x], vetorOriginal); // lê o arquivo original de cada tamanho e ordem, colocando num ponteiro
+
+            testar("bolha", vetorOriginal, tamanhos[x], o);
+            // testar("bolhaComParada", vetorOriginal, tamanhos[x], o);
+            // testar("selecaoDireta", vetorOriginal, tamanhos[x], o);
+            // testar("ordenaBinaria", vetorOriginal, tamanhos[x], o);
+            // testar("ordenaTernaria", vetorOriginal, tamanhos[x], o);
+            // testar("shellSort", vetorOriginal, tamanhos[x], o);
+            // testar("ordenaDireta", vetorOriginal, tamanhos[x], o);
+
+            // testar("heapSort", vetorOriginal, tamanhos[x], o);
+            // testar("mergeSortWrapper", vetorOriginal, tamanhos[x], o);
+
+            // testar("quicksortcentro", vetorOriginal, tamanhos[x], o);
+            // testar("quicksortfim", vetorOriginal, tamanhos[x], o);
+            // testar("quicksortmediana", vetorOriginal, tamanhos[x], o);
+
+            // testar("radixSort", vetorOriginal, tamanhos[x], o);
+            // testar("bucketSort", vetorOriginal, tamanhos[x], o);
+
+            free(vetorOriginal);
         }
-
-        lerArquivo("Origem/input", o, tamanhos[0], vetorOriginal); // lê o arquivo original de cada tamanho e ordem, colocando num ponteiro
-
-        testar("bolha", vetorOriginal, tamanhos[0], o);
-        // testar("bolhaComParada", vetorOriginal, o, tamanhos[x]);
-        // testar("selecaoDireta", vetorOriginal, o, tamanhos[x]);
-        // testar("ordenaBinaria", vetorOriginal, o, tamanhos[x]);
-        // testar("ordenaTernaria", vetorOriginal, o, tamanhos[x]);
-        // testar("shellSort", vetorOriginal, o, tamanhos[x]);
-        // testar("ordenaDireta", vetorOriginal, o, tamanhos[x]);
-
-        // testar("heapSort", vetorOriginal, o, tamanhos[x]);
-        // testar("mergeSortWrapper", vetorOriginal, o, tamanhos[x]);
-
-        // testar("quicksortcentro", vetorOriginal, o, tamanhos[x]);
-        // testar("quicksortfim", vetorOriginal, o, tamanhos[x]);
-        // testar("quicksortmediana", vetorOriginal, o, tamanhos[x]);
-
-        // testar("radixSort", vetorOriginal, o, tamanhos[x]);
-        // testar("bucketSort", vetorOriginal, o, tamanhos[x]);
     }
-    // }
 
     return 0;
 }
