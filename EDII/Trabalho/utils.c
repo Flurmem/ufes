@@ -4,6 +4,8 @@
 #include <time.h>
 #include <sys/stat.h>
 #include <string.h>
+#include <windows.h> 
+#include <locale.h>
 
 #include "ordenacoes.h"
 
@@ -21,7 +23,7 @@ void imprimeVetor(int vetor[], int tam)
 void salvarArquivo(int *vetor, char saida[], int ordem, int n)
 {
     char nomeArquivo[50];
-    sprintf(nomeArquivo, "%s_%d_%d", saida, ordem, n);
+    sprintf(nomeArquivo, "%s_%d_%d.txt", saida, ordem, n);
     FILE *f = fopen(nomeArquivo, "w");
     if (f == NULL)
     {
@@ -40,7 +42,7 @@ void salvarArquivo(int *vetor, char saida[], int ordem, int n)
 void lerArquivo(char origem[], int ordem, int n, int *vetor)
 {
     char nomeArquivo[50];
-    sprintf(nomeArquivo, "%s_%d_%d", origem, ordem, n);
+    sprintf(nomeArquivo, "%s_%d_%d.txt", origem, ordem, n);
     FILE *f = fopen(nomeArquivo, "r");
     if (f == NULL)
     {
@@ -58,6 +60,7 @@ void lerArquivo(char origem[], int ordem, int n, int *vetor)
 
 void salvarRelatorio(char algoritmo[], int n, int ordem, Estatisticas est)
 {
+    setlocale(LC_NUMERIC, "Portuguese");
     char nomeArquivo[] = "resultado.csv";
     int arquivoExiste = 0;
 
@@ -81,12 +84,12 @@ void salvarRelatorio(char algoritmo[], int n, int ordem, Estatisticas est)
         fprintf(f, "Algoritmo;Tamanho;Ordem;Comparacoes;Trocas;Tempo(s)\n");
     }
 
-    fprintf(f, "%s;%d;%d;%lld;%lld;%.6f\n", algoritmo, n, ordem, est.comparacoes, est.trocas, est.tempo_execucao);
+    fprintf(f, "%s;%d;%d;%lld;%lld;%.9f\n", algoritmo, n, ordem, est.comparacoes, est.trocas, est.tempo_execucao);
 
     fclose(f);
 }
 
-void testar(char algoritmo[], int *vetorOriginal, int n, int ordem)
+void testar(void (*funcaoOrdenacao)(int*, int, Estatisticas*), char algoritmo[], int *vetorOriginal, int n, int ordem)
 {
     Estatisticas est;
 
@@ -95,12 +98,16 @@ void testar(char algoritmo[], int *vetorOriginal, int n, int ordem)
     memcpy(vetorCopia, vetorOriginal, n * sizeof(int));
 
     // 2. EXECUÇÃO
-    clock_t inicio = clock();
+    LARGE_INTEGER frequency;
+    LARGE_INTEGER start, end;
+    
+    QueryPerformanceFrequency(&frequency); // Pega a frequência do processador
+    QueryPerformanceCounter(&start);       // Inicia cronômetro preciso
 
-    bolha(vetorCopia, n, &est);
+    funcaoOrdenacao(vetorCopia, n, &est); // Executa a função de ordenação passada como parâmetro
 
-    clock_t fim = clock();
-    est.tempo_execucao = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    QueryPerformanceCounter(&end);
+    est.tempo_execucao = (double)(end.QuadPart - start.QuadPart) / frequency.QuadPart;
 
     printf("| %-15s | %-8d | %-2d | C: %-12lld | T: %-12lld | %fs |\n",
            algoritmo, n, ordem, est.comparacoes, est.trocas, est.tempo_execucao);

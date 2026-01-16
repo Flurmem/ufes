@@ -329,11 +329,27 @@ int particaoCentro(int esq, int dir, int vetor[], Estatisticas *est)
 
 void quickSortRecursivoCentro(int vetor[], int esq, int dir, Estatisticas *est)
 {
-    if (esq < dir)
+    // Mudamos de IF para WHILE para permitir a iteração do lado maior
+    while (esq < dir)
     {
         int p = particaoCentro(esq, dir, vetor, est);
-        quickSortRecursivoCentro(vetor, esq, p - 1, est);
-        quickSortRecursivoCentro(vetor, p, dir, est);
+        
+        // Calculamos o tamanho dos dois lados
+        int tamanhoEsq = (p - 1) - esq;
+        int tamanhoDir = dir - p;
+
+        // Se o lado ESQUERDO for menor, recursamos nele e iteramos o direito
+        if (tamanhoEsq < tamanhoDir) 
+        {
+            quickSortRecursivoCentro(vetor, esq, p - 1, est);
+            esq = p; // O 'while' vai cuidar do lado direito (p até dir)
+        }
+        // Se o lado DIREITO for menor, recursamos nele e iteramos o esquerdo
+        else 
+        {
+            quickSortRecursivoCentro(vetor, p, dir, est);
+            dir = p - 1; // O 'while' vai cuidar do lado esquerdo (esq até p-1)
+        }
     }
 }
 
@@ -389,11 +405,21 @@ int particaoFim(int esq, int dir, int vetor[], Estatisticas *est)
 
 void quickSortRecursivoFim(int vetor[], int esq, int dir, Estatisticas *est)
 {
-    if (esq < dir)
+    while (esq < dir)
     {
         int p = particaoFim(esq, dir, vetor, est);
-        quickSortRecursivoFim(vetor, esq, p - 1, est);
-        quickSortRecursivoFim(vetor, p + 1, dir, est);
+        
+        // Otimização: Recurso no lado menor, Loop no lado maior
+        if (p - esq < dir - p) 
+        {
+            quickSortRecursivoFim(vetor, esq, p - 1, est);
+            esq = p + 1; // Loop trata o lado direito
+        }
+        else 
+        {
+            quickSortRecursivoFim(vetor, p + 1, dir, est);
+            dir = p - 1; // Loop trata o lado esquerdo
+        }
     }
 }
 
@@ -479,11 +505,26 @@ int particaoMediana(int esq, int dir, int vetor[], Estatisticas *est)
 
 void quickSortRecursivoMediana(int vetor[], int esq, int dir, Estatisticas *est)
 {
-    if (esq < dir)
+    // Mesma lógica: IF vira WHILE
+    while (esq < dir)
     {
         int p = particaoMediana(esq, dir, vetor, est);
-        quickSortRecursivoMediana(vetor, esq, p - 1, est);
-        quickSortRecursivoMediana(vetor, p, dir, est);
+        
+        // Calculamos os tamanhos
+        int tamanhoEsq = (p - 1) - esq;
+        int tamanhoDir = dir - p;
+
+        // Decide qual lado processar primeiro (o menor vai na recursão)
+        if (tamanhoEsq < tamanhoDir)
+        {
+            quickSortRecursivoMediana(vetor, esq, p - 1, est);
+            esq = p; // Loop processa o lado direito
+        }
+        else
+        {
+            quickSortRecursivoMediana(vetor, p, dir, est);
+            dir = p - 1; // Loop processa o lado esquerdo
+        }
     }
 }
 
