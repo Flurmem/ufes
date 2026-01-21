@@ -6,28 +6,35 @@
 
 #include "ordenacoes.h"
 
+// @inicio_bubbleSort
 // ============ BUBBLE SORT ============
-void bolha(int *vetor, int n, Estatisticas *est) {
+void bolha(int *vetor, int n, Estatisticas *est)
+{
     est->comparacoes = 0;
     est->trocas = 0;
 
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            
-            est->comparacoes++; 
-            
-            if (vetor[j] > vetor[j + 1]) {
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = 0; j < n - i - 1; j++)
+        {
+
+            est->comparacoes++;
+
+            if (vetor[j] > vetor[j + 1])
+            {
                 // Realiza a troca
                 int aux = vetor[j];
                 vetor[j] = vetor[j + 1];
                 vetor[j + 1] = aux;
-                
+
                 est->trocas++;
             }
         }
     }
 }
+// @fim_bubbleSort
 
+// @inicio_bubbleSortComParada
 void bolhaComParada(int *vetor, int n, Estatisticas *est)
 {
     est->comparacoes = 0;
@@ -39,7 +46,7 @@ void bolhaComParada(int *vetor, int n, Estatisticas *est)
         int j = 1;
         mudou = 0;
         int ultimo_indice_troca = 0;
-        
+
         while (j < n)
         {
             est->comparacoes++;
@@ -48,7 +55,7 @@ void bolhaComParada(int *vetor, int n, Estatisticas *est)
                 int aux = vetor[j - 1];
                 vetor[j - 1] = vetor[j];
                 vetor[j] = aux;
-                
+
                 est->trocas++;
                 mudou = 1;
                 ultimo_indice_troca = j;
@@ -58,6 +65,9 @@ void bolhaComParada(int *vetor, int n, Estatisticas *est)
         n = ultimo_indice_troca;
     }
 }
+// @fim_bubbleSortComParada
+
+// @inicio_selecaoDireta
 // ============ SELECAO DIRETA ============
 void selecaoDireta(int *vetor, int n, Estatisticas *est)
 {
@@ -75,7 +85,7 @@ void selecaoDireta(int *vetor, int n, Estatisticas *est)
                 menor = j;
             }
         }
-        
+
         if (i != menor)
         {
             int aux = vetor[i];
@@ -85,6 +95,10 @@ void selecaoDireta(int *vetor, int n, Estatisticas *est)
         }
     }
 }
+
+// @fim_selecaoDireta
+
+// @inicio_insercaoBinaria
 // ============ INSERCAO BINARIA ============
 void ordenaBinaria(int *v, int n, Estatisticas *est)
 {
@@ -120,6 +134,10 @@ void ordenaBinaria(int *v, int n, Estatisticas *est)
     }
 }
 
+// @fim_insercaoBinaria
+
+//  @inicio_insercaoTernaria
+
 // ============ INSERCAO TERNARIA ============
 void ordenaTernaria(int *v, int n, Estatisticas *est)
 {
@@ -142,7 +160,7 @@ void ordenaTernaria(int *v, int n, Estatisticas *est)
             {
                 dir = m1 - 1;
             }
-            else 
+            else
             {
                 est->comparacoes++;
                 if (aux > v[m2])
@@ -165,6 +183,10 @@ void ordenaTernaria(int *v, int n, Estatisticas *est)
         v[esq] = aux;
     }
 }
+
+//  @fim_insercaoTernaria
+
+//  @inicio_shellSort
 
 // ============ SHELL SORT ============
 void shellSort(int *vetor, int n, Estatisticas *est)
@@ -204,7 +226,9 @@ void shellSort(int *vetor, int n, Estatisticas *est)
         gap = gap / 3;
     }
 }
+//  @fim_shellSort
 
+//  @inicio_insercaoDireta
 // ============ INSERCAO DIRETA ============
 void ordenaDireta(int *vetor, int n, Estatisticas *est)
 {
@@ -233,8 +257,9 @@ void ordenaDireta(int *vetor, int n, Estatisticas *est)
         vetor[j + 1] = aux;
     }
 }
+//  @fim_insercaoDireta
 
-
+//  @inicio_heapSort
 // ============ HEAP SORT ============
 void criaHeap(int *vetor, int inicio, int final, Estatisticas *est)
 {
@@ -285,12 +310,13 @@ void heapSort(int *vetor, int n, Estatisticas *est)
         vetor[0] = vetor[i];
         vetor[i] = aux;
         est->trocas++;
-        
+
         criaHeap(vetor, 0, i - 1, est);
     }
 }
+//  @fim_heapSort
 
-
+// @inicio_quickSortCentro
 // ============ QUICK SORT - PIVO CENTRO ============
 int particaoCentro(int esq, int dir, int vetor[], Estatisticas *est)
 {
@@ -305,14 +331,14 @@ int particaoCentro(int esq, int dir, int vetor[], Estatisticas *est)
             est->comparacoes++;
             i++;
         }
-        est->comparacoes++; // Conta a comparacao que falhou no while acima
+        est->comparacoes++;
 
         while (vetor[j] > pivo)
         {
             est->comparacoes++;
             j--;
         }
-        est->comparacoes++; // Conta a comparacao que falhou no while acima
+        est->comparacoes++;
 
         if (i <= j)
         {
@@ -329,26 +355,22 @@ int particaoCentro(int esq, int dir, int vetor[], Estatisticas *est)
 
 void quickSortRecursivoCentro(int vetor[], int esq, int dir, Estatisticas *est)
 {
-    // Mudamos de IF para WHILE para permitir a iteração do lado maior
     while (esq < dir)
     {
         int p = particaoCentro(esq, dir, vetor, est);
-        
-        // Calculamos o tamanho dos dois lados
+
         int tamanhoEsq = (p - 1) - esq;
         int tamanhoDir = dir - p;
 
-        // Se o lado ESQUERDO for menor, recursamos nele e iteramos o direito
-        if (tamanhoEsq < tamanhoDir) 
+        if (tamanhoEsq < tamanhoDir)
         {
             quickSortRecursivoCentro(vetor, esq, p - 1, est);
-            esq = p; // O 'while' vai cuidar do lado direito (p até dir)
+            esq = p;
         }
-        // Se o lado DIREITO for menor, recursamos nele e iteramos o esquerdo
-        else 
+        else
         {
             quickSortRecursivoCentro(vetor, p, dir, est);
-            dir = p - 1; // O 'while' vai cuidar do lado esquerdo (esq até p-1)
+            dir = p - 1;
         }
     }
 }
@@ -359,7 +381,9 @@ void quicksortcentro(int vetor[], int n, Estatisticas *est)
     est->trocas = 0;
     quickSortRecursivoCentro(vetor, 0, n - 1, est);
 }
+// @fim_quickSortCentro
 
+// @inicio_quickSortFim
 // ============ QUICK SORT - PIVO FIM ============
 int particaoFim(int esq, int dir, int vetor[], Estatisticas *est)
 {
@@ -374,14 +398,16 @@ int particaoFim(int esq, int dir, int vetor[], Estatisticas *est)
             est->comparacoes++;
             i++;
         }
-        if (i <= j) est->comparacoes++; // Conta a comparação que falhou ou parou o laço
+        if (i <= j)
+            est->comparacoes++;
 
         while (i <= j && vetor[j] > pivo)
         {
             est->comparacoes++;
             j--;
         }
-        if (i <= j) est->comparacoes++; // Conta a comparação que falhou ou parou o laço
+        if (i <= j)
+            est->comparacoes++;
 
         if (i <= j)
         {
@@ -393,13 +419,12 @@ int particaoFim(int esq, int dir, int vetor[], Estatisticas *est)
             j--;
         }
     }
-    
-    // Troca final para posicionar o pivô
+
     int aux = vetor[i];
     vetor[i] = vetor[dir];
     vetor[dir] = aux;
     est->trocas++;
-    
+
     return i;
 }
 
@@ -408,14 +433,13 @@ void quickSortRecursivoFim(int vetor[], int esq, int dir, Estatisticas *est)
     while (esq < dir)
     {
         int p = particaoFim(esq, dir, vetor, est);
-        
-        // Otimização: Recurso no lado menor, Loop no lado maior
-        if (p - esq < dir - p) 
+
+        if (p - esq < dir - p)
         {
             quickSortRecursivoFim(vetor, esq, p - 1, est);
             esq = p + 1; // Loop trata o lado direito
         }
-        else 
+        else
         {
             quickSortRecursivoFim(vetor, p + 1, dir, est);
             dir = p - 1; // Loop trata o lado esquerdo
@@ -427,11 +451,15 @@ void quicksortfim(int vetor[], int n, Estatisticas *est)
 {
     est->comparacoes = 0;
     est->trocas = 0;
-    if (n > 0) {
+    if (n > 0)
+    {
         quickSortRecursivoFim(vetor, 0, n - 1, est);
     }
 }
 
+// @fim_quickSortFim
+
+// @inicio_quickSortMediana
 // ============ QUICK SORT - MEDIANA ============
 int medianaDe3(int esq, int dir, int vetor[], Estatisticas *est)
 {
@@ -445,7 +473,7 @@ int medianaDe3(int esq, int dir, int vetor[], Estatisticas *est)
         vetor[meio] = aux;
         est->trocas++;
     }
-    
+
     est->comparacoes++;
     if (vetor[meio] > vetor[dir])
     {
@@ -454,7 +482,7 @@ int medianaDe3(int esq, int dir, int vetor[], Estatisticas *est)
         vetor[dir] = aux;
         est->trocas++;
     }
-    
+
     est->comparacoes++;
     if (vetor[esq] > vetor[meio])
     {
@@ -505,25 +533,23 @@ int particaoMediana(int esq, int dir, int vetor[], Estatisticas *est)
 
 void quickSortRecursivoMediana(int vetor[], int esq, int dir, Estatisticas *est)
 {
-    // Mesma lógica: IF vira WHILE
     while (esq < dir)
     {
         int p = particaoMediana(esq, dir, vetor, est);
-        
+
         // Calculamos os tamanhos
         int tamanhoEsq = (p - 1) - esq;
         int tamanhoDir = dir - p;
 
-        // Decide qual lado processar primeiro (o menor vai na recursão)
         if (tamanhoEsq < tamanhoDir)
         {
             quickSortRecursivoMediana(vetor, esq, p - 1, est);
-            esq = p; // Loop processa o lado direito
+            esq = p;
         }
         else
         {
             quickSortRecursivoMediana(vetor, p, dir, est);
-            dir = p - 1; // Loop processa o lado esquerdo
+            dir = p - 1;
         }
     }
 }
@@ -537,8 +563,9 @@ void quicksortmediana(int vetor[], int n, Estatisticas *est)
         quickSortRecursivoMediana(vetor, 0, n - 1, est);
     }
 }
+// @fim_quickSortMediana
 
-
+// @inicio_mergeSort
 // ============ MERGE SORT ============
 
 void intercalar(int vetor[], int inicio, int meio, int final, Estatisticas *est)
@@ -611,8 +638,9 @@ void mergeSortWrapper(int vetor[], int n, Estatisticas *est)
         mergeSort(vetor, 0, n - 1, est);
     }
 }
+// @fim_mergeSort
 
-
+// @inicio_radixSort
 // ============ RADIX SORT ============
 void radixSort(int *vetor, int n, Estatisticas *est)
 {
@@ -630,7 +658,8 @@ void radixSort(int *vetor, int n, Estatisticas *est)
 
     // Alocação dinâmica para evitar Stack Overflow com 500k elementos
     int *output = (int *)malloc(n * sizeof(int));
-    if (output == NULL) return; // Tratamento básico de erro
+    if (output == NULL)
+        return; // Tratamento básico de erro
 
     for (int exp = 1; maior / exp > 0; exp *= 10)
     {
@@ -648,7 +677,6 @@ void radixSort(int *vetor, int n, Estatisticas *est)
             count[i] += count[i - 1];
         }
 
-        // Construindo o vetor de saída (Ordenação estável)
         for (int i = n - 1; i >= 0; i--)
         {
             output[count[(vetor[i] / exp) % 10] - 1] = vetor[i];
@@ -666,14 +694,15 @@ void radixSort(int *vetor, int n, Estatisticas *est)
 
     free(output); // Libera a memória alocada
 }
+// @fim_radixSort
 
+// @inicio_bucketSort
 // ============ BUCKET SORT ============
 void bucketSort(int *vetor, int n, Estatisticas *est)
 {
     est->comparacoes = 0;
     est->trocas = 0;
 
-    // 1. Encontrar o maior valor para determinar o tamanho do vetor de contagem
     int maior = vetor[0];
     for (int i = 1; i < n; i++)
     {
@@ -684,22 +713,16 @@ void bucketSort(int *vetor, int n, Estatisticas *est)
         }
     }
 
-    /* 2. Alocação Dinâmica (Heap)
-       Usamos calloc em vez de malloc porque ele já inicializa tudo com 0.
-       Isso evita o loop de zerar o vetor e previne Stack Overflow.
-    */
     int *buckets = (int *)calloc(maior + 1, sizeof(int));
-    
-    // Verificação de segurança (caso falte memória RAM)
-    if (buckets == NULL) return; 
 
-    // 3. Contagem de frequências (Distribuição nos baldes)
+    // Verificação de segurança (caso falte memória RAM)
+    if (buckets == NULL)
+        return;
+
     for (int i = 0; i < n; i++)
     {
         buckets[vetor[i]]++;
     }
-
-    // 4. Reconstrução do vetor ordenado
     int k = 0;
     for (int i = 0; i <= maior; i++)
     {
@@ -707,9 +730,11 @@ void bucketSort(int *vetor, int n, Estatisticas *est)
         for (int j = 0; j < buckets[i]; j++)
         {
             vetor[k++] = i;
-            est->trocas++; // Contamos como movimentação de escrita
+            est->trocas++;
         }
     }
 
     free(buckets); // Libera a memória alocada
 }
+
+// @fim_bucketSort

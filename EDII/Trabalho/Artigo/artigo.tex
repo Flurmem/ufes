@@ -1,0 +1,388 @@
+% --- PREÂMBULO ---
+\documentclass[a4paper, 12pt]{article} % Classe do documento (artigo)
+
+% Pacotes fundamentais
+\usepackage[utf8]{inputenc}  % Codificação de caracteres (acentos)
+\usepackage[T1]{fontenc}     % Codificação de fontes
+\usepackage[brazil]{babel}   % Traduz termos (ex: "Table of Contents" vira "Sumário")
+\usepackage{graphicx}        % Para inserir imagens
+\usepackage{amsmath}         % Para fórmulas matemáticas avançadas
+\usepackage{geometry}        % Para ajustar margens
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+
+% --- PACOTE DE CÓDIGO ---
+\usepackage{listings}
+\usepackage{xcolor} % Para cores no código
+
+% Configuração bonita para código C
+\lstset{
+    language=C,                     
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries, 
+    stringstyle=\color{red},        
+    commentstyle=\color{green!50!black}, 
+    numbers=left,                   
+    numberstyle=\tiny\color{gray},  
+    stepnumber=1,                    
+    frame=single,                    
+    breaklines=true,                 
+    captionpos=b,                   
+    tabsize=4                       
+    rangeprefix=//\ @, 
+    rangesuffix=,             
+    includerangemarker=false 
+}
+
+% Configuração das margens (exemplo padrão ABNT)
+\geometry{top=3cm, bottom=2cm, left=3cm, right=2cm}
+
+% Informações do Título
+\title{Estudo Comparativo entre diferentes Algoritmos de Ordenação}
+\author{Pedro Henrique Rodrigues Vargas\\ \small Universidade Federal do Espírito Santo - UFES \\ \small}
+\date{\today}
+
+% --- CORPO DO TEXTO ---
+\begin{document}
+
+\maketitle % Gera o título, autor e data
+
+\begin{abstract}
+    Com o avanço da tecnologia, a eficiência dos algoritmos de ordenação 
+    tornou-se crucial para o desempenho de sistemas computacionais. 
+    Este artigo apresenta um estudo comparativo entre diversos algoritmos de ordenação, analisando sua 
+    complexidade temporal e espacial em diferentes cenários de uso. Os resultados indicam que a escolha do 
+    algoritmo adequado pode impactar significativamente a performance de aplicações que lidam com grandes volumes de dados. 
+    Por isso, avaliamos 14 diferentes algoritmos de ordenação, do famoso algoritmo de bolha, 
+    \textit{BubbleSort}, ao \textit{BucketSort}, realizando diferentes testes, em diferentes cenários pensados 
+    para encontrarmos os melhores resultados possíveis.
+    \textbf{Palavras-chave:} Algoritmos de Ordenação. Eficiência. Complexidade.
+\end{abstract}
+
+\section{Introdução}
+Neste artigo, exploramos 14 algoritmos de ordenação, incluindo 
+\textbf{
+    \textit{BubbleSort},
+    \textit{InsertionSort},
+    \textit{BinarySort},
+    \textit{TernarySort},
+    \textit{ShellSort},
+    \textit{SelectionSort},
+    \textit{HeapSort},
+    \textit{QuickSort},
+    \textit{MergeSort},
+    \textit{RadixSort} e
+    \textit{BucketSort}
+}. 
+Cada algoritmo foi implementado utilizando a linguagem C e para cada algoritmo, foram realizados testes em diferentes cenários: 
+listas já ordenadas, listas inversamente ordenadas e listas com elementos aleatórios, com tamanhos variados. 
+A análise de desempenho foi baseada no tempo de execução e complexidade de cada algoritmo.
+
+Em um primeiro momento, iniciamos avaliando os algoritmos utilizando vetores pequenos, com 10000 elementos, 
+organizados da seguinte forma: aleatórios, crescentes e decrescentes. Então, partimos para vetores maiores, com 100000 de elementos, e 500000 de elementos, 
+sempre mantendo a mesma organização. 
+
+Vale destacar que o volume da dados que algumas empresas lidam atualmente é imenso, em casos passando facilmente da casa 
+dos bilhões de registros. Porém nesse teste, optamos por não utilizar vetores maiores que 500000 elementos, pois como será apresentado mais adiante, o tempo de execução 
+de alguns algoritmos com complexidade quadrática se torna irrazoavelmente enfático em relação aos resultados de algoritmos mais eficientes à medida que adicionamos mais elementos. Portanto, o tamanho de 
+500000 já é suficiente para demonstrar a ineficiência desses algoritmos em cenários mais realistas. A seguir, vamos apresentar os códigos de cada algoritmo.
+
+
+\section{Algoritmos}
+Nesta seção estão todos os 14 algoritmos de ordenação que foram utilizados no estudo comparativo. Para não prejudicar a legibilidade do artigo, as implementações foram exibidas no final do artigo, e apenas uma breve descrição de cada algoritmo é apresentada aqui.
+
+Algoritmos simples como \textit{BubbleSort} e \textit{InsertionSort} são apresentados primeiro, seguidos por algoritmos mais complexos como \textit{QuickSort} e \textit{MergeSort}.
+
+\subsection{BubbleSort}
+O BubbleSort é um algoritmo de ordenação simples que repetidamente percorre a lista, compara elementos adjacentes e os troca se estiverem na ordem errada.
+Essa passagem pela lista é repetida até que a lista esteja ordenada.
+
+\subsection{BubbleSort com Parada}
+Uma otimização do BubbleSort é adicionar uma verificação para ver se alguma troca foi feita durante uma passagem pela lista.
+Se nenhuma troca for feita, a lista já está ordenada e o algoritmo pode parar mais cedo.
+
+\subsection{InsertionSort}
+O InsertionSort é um algoritmo de ordenação que constrói a lista ordenada um elemento de cada vez. Ele pega cada elemento da lista de entrada e o insere na posição correta na lista ordenada.
+
+\subsection{BinarySort}
+A Inserção Binária é uma variação do InsertionSort que utiliza busca binária para encontrar a posição correta de inserção de cada elemento, reduzindo o número de comparações necessárias.
+
+\subsection{TernarySort}
+A Inserção Ternária é uma variação do InsertionSort que utiliza busca ternária para encontrar a posição correta de inserção de cada elemento, dividindo a lista em três partes para reduzir ainda mais o número de comparações necessárias.
+
+\subsection{ShellSort}
+O ShellSort é um algoritmo de ordenação que generaliza o InsertionSort para permitir a troca de elementos distantes. Ele começa comparando elementos que estão longe uns dos outros e gradualmente reduz a distância entre os elementos a serem comparados.
+
+\subsection{SelectionSort}
+O SelectionSort é um algoritmo de ordenação que divide a lista em duas partes: a parte ordenada e a parte não ordenada. Ele repetidamente seleciona o menor (ou maior) elemento da parte não ordenada e o move para o final da parte ordenada.
+
+\subsection{HeapSort}
+O heapSort é um algoritmo de ordenação baseado na estrutura de dados heap. 
+Ele constrói um heap a partir dos dados de entrada e, em seguida, extrai o maior (ou menor) elemento do heap repetidamente 
+para construir a lista ordenada.
+Ele faz isso em duas fases: primeiro, constrói um heap máximo a partir do array de entrada; depois, remove o maior elemento do heap (a raiz) e o coloca no final do array,
+reduzindo o tamanho do heap em um. Esse processo é repetido até que todos os elementos estejam ordenados.
+
+\subsection{Quicksort}
+O QuickSort é um algoritmo de ordenação eficiente que utiliza a técnica de divisão e conquista. Ele seleciona um elemento como pivô e particiona a lista em duas sublistas:
+uma com elementos menores que o pivô e outra com elementos maiores que o pivô. Em seguida, ele ordena recursivamente as sublistas.
+Aqui, temos três variações do QuickSort, cada uma utilizando uma estratégia diferente para escolher o pivô: no centro, no fim e na mediana do vetor.
+
+\subsection{MergeSort}
+O MergeSort é um algoritmo de ordenação eficiente que também utiliza a técnica de divisão e conquista. 
+Ele divide a lista em duas metades, ordena cada metade recursivamente e, em seguida, mescla as duas metades 
+ordenadas para produzir a lista final ordenada.
+
+\subsection{RadixSort}
+O RadixSort é um algoritmo de ordenação linear não comparativo que ordena os números inteiros processando individualmente cada dígito. Ele começa pelo dígito menos significativo e avança para o dígito mais significativo, utilizando um 
+algoritmo de ordenação estável (como o CountingSort) para ordenar os números com base em cada dígito.
+
+\subsection{BucketSort}
+O BucketSort é um algoritmo de ordenação que distribui os elementos de entrada em um número finito de "baldes" (ou "buckets"). Cada balde é então ordenado individualmente, geralmente usando outro algoritmo de ordenação, e os baldes são concatenados para formar a lista ordenada final.
+
+\section{Resultados}
+\subsection{Vetores com 10000 elementos}
+Aqui estão os resultados dos testes realizados com vetores de 10000 elementos.
+
+% Tabela para N = 10.000
+\begin{table}[H]
+\centering
+\caption{Resultados para N = 10000}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccccccc}
+\toprule
+ & \multicolumn{3}{c}{Aleatório} & \multicolumn{3}{c}{Crescente} & \multicolumn{3}{c}{Decrescente} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+Algoritmo & Comp. & Troca & Tempo (s) & Comp. & Troca & Tempo (s) & Comp. & Troca & Tempo (s) \\
+\midrule
+Bolha & 49995000 & 24952888 & 0,1239759 & 49995000 & 0 & 0,0659426 & 49995000 & 49995000 & 0,1451197 \\
+Bolha com Parada & 49981281 & 24952888 & 0,1130962 & 9999 & 0 & 0,0000119 & 49995000 & 49995000 & 0,1392079 \\
+Seleção Direta & 49995000 & 9992 & 0,0621527 & 49995000 & 0 & 0,0606472 & 49995000 & 5000 & 0,062966 \\
+Ordena Binária & 118964 & 24952888 & 0,0261411 & 113631 & 0 & 0,0002799 & 123617 & 49995000 & 0,0508815 \\
+Ordena Ternária & 127826 & 24953471 & 0,0277247 & 150486 & 0 & 0,0002874 & 75243 & 49995000 & 0,0523209 \\
+Ordena Direta & 24962883 & 24952888 & 0,0430634 & 9999 & 0 & 0,0000278 & 49995000 & 49995000 & 0,0889183 \\
+ShellSort & 241227 & 170323 & 0,0009789 & 75243 & 0 & 0,0001546 & 120190 & 53704 & 0,0002533 \\
+HeapSort & 235476 & 124263 & 0,0009548 & 244460 & 131956 & 0,0007409 & 226682 & 116696 & 0,000716 \\
+MergeSort & 120494 & 267232 & 0,0018694 & 69008 & 267232 & 0,0011705 & 64608 & 267232 & 0,0010473 \\
+Quicksort Centro & 178399 & 35092 & 0,000842 & 143615 & 9999 & 0,0002685 & 143614 & 14998 & 0,0002795 \\
+Quicksort Fim & 153440 & 32287 & 0,0014703 & 49995000 & 9999 & 0,0411658 & 50000000 & 9999 & 0,0430158 \\
+Quicksort Mediana& 189379 & 41162 & 0,0008572 & 173612 & 9999 & 0,0002657 & 173611 & 15000 & 0,0003698 \\
+RadixSort & 9999 & 100000 & 0,0003493 & 9999 & 80000 & 0,000486 & 9999 & 100000 & 0,0004846 \\
+BucketSort & 9999 & 10000 & 0,0001736 & 9999 & 10000 & 0,0000521 & 9999 & 10000 & 0,0000704 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+Podemos perceber alguns detalhes interessantes nos resultados apresentados na tabela acima.
+
+\subsection{Vetores com 100000 elementos}
+Aqui estão os resultados dos testes realizados com vetores de 100000 elementos.
+% Tabela para N = 100.000
+\begin{table}[H]
+\centering
+\caption{Resultados para N = 100000}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccccccc}
+\toprule
+ & \multicolumn{3}{c}{Aleatório} & \multicolumn{3}{c}{Crescente} & \multicolumn{3}{c}{Decrescente} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+Algoritmo & Comp. & Troca & Tempo (s) & Comp. & Troca & Tempo (s) & Comp. & Troca & Tempo (s) \\
+\midrule
+Bolha & 4999950000 & 2505816708 & 19,1008208 & 4999950000 & 0 & 6,6701836 & 4999950000 & 4999950000 & 13,7940892 \\
+Bolha com Parada & 4999368699 & 2505816708 & 18,7658825 & 99999 & 0 & 0,0001249 & 4999950000 & 4999950000 & 14,0656675 \\
+Seleção Direta & 4999950000 & 99985 & 6,039928 & 4999950000 & 0 & 5,9517727 & 4999950000 & 50000 & 6,2720383 \\
+Ordena Binária & 1522852 & 2505816708 & 2,6248363 & 1468946 & 0 & 0,0038788 & 1568929 & 4999950000 & 5,2030733 \\
+Ordena Ternária & 1653240 & 2505883687 & 2,6118072 & 1934292 & 0 & 0,0037757 & 967146 & 4999950000 & 5,0971373 \\
+Ordena Direta & 2505916692 & 2505816708 & 4,4281424 & 99999 & 0 & 0,0001784 & 4999950000 & 4999950000 & 8,8602179 \\
+ShellSort & 3871671 & 2946018 & 0,0145472 & 967146 & 0 & 0,0018053 & 1533494 & 619654 & 0,0032986 \\
+HeapSort & 3019599 & 1574963 & 0,0120167 & 3112517 & 1650854 & 0,0084957 & 2926640 & 1497434 & 0,0085386 \\
+MergeSort & 1536316 & 3337856 & 0,01887 & 853904 & 3337856 & 0,010753 & 815024 & 3337856 & 0,0104155 \\
+Quicksort Centro & 2226873 & 459428 & 0,0092934 & 1768927 & 99999 & 0,0021882 & 1768926 & 149998 & 0,0023402 \\
+Quicksort Fim & 2008628 & 429734 & 0,0083882 & 4999950000 & 99999 & 4,4302302 & 5000000000 & 99999 & 4,4770111 \\
+Quicksort Mediana & 2272723 & 499545 & 0,0100095 & 2068924 & 99999 & 0,0030056 & 2068923 & 150000 & 0,0030327 \\
+RadixSort & 99999 & 1000000 & 0,0035062 & 99999 & 1000000 & 0,003388 & 99999 & 1200000 & 0,0040687 \\
+BucketSort & 99999 & 100000 & 0,0006604 & 99999 & 100000 & 0,0004004 & 99999 & 100000 & 0,0004745 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\subsection{Vetores com 500000 elementos}
+Aqui estão os resultados dos testes realizados com vetores de 500000 elementos.
+% Tabela para N = 500.000
+\begin{table}[H]
+\centering
+\caption{Resultados para $N = 500.000$}
+\vspace{0.2cm}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccccccc}
+\toprule
+ & \multicolumn{3}{c}{\textbf{Aleatório}} & \multicolumn{3}{c}{\textbf{Crescente}} & \multicolumn{3}{c}{\textbf{Decrescente}} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+\textbf{Algoritmo} & \textbf{Comp.} & \textbf{Troca} & \textbf{Tempo (s)} & \textbf{Comp.} & \textbf{Troca} & \textbf{Tempo (s)} & \textbf{Comp.} & \textbf{Troca} & \textbf{Tempo (s)} \\
+\midrule
+Bolha & $1.25 \times 10^{11}$ & $6.25 \times 10^{10}$ & 485,35 & $1.25 \times 10^{11}$ & 0 & 162,75 & $1.25 \times 10^{11}$ & $1.25 \times 10^{11}$ & 343,42 \\
+Seleção Direta & $1.25 \times 10^{11}$ & 499.970 & 147,50 & $1.25 \times 10^{11}$ & 0 & 145,09 & $1.25 \times 10^{11}$ & 250.000 & 155,78 \\
+Ordena Binária & 8.774.032 & $6.25 \times 10^{10}$ & 64,37 & 8.475.732 & 0 & 0,022 & 8.975.713 & $1.25 \times 10^{11}$ & 128,87 \\
+Ordena Ternária & 9.642.168 & $6.25 \times 10^{10}$ & 64,65 & 11.202.852 & 0 & 0,023 & 5.601.426 & $1.25 \times 10^{11}$ & 128,68 \\
+Ordena Direta & $6.25 \times 10^{10}$ & $6.25 \times 10^{10}$ & 110,55 & 499.999 & 0 & 0,0009 & $1.25 \times 10^{11}$ & $1.25 \times 10^{11}$ & 221,92 \\
+ShellSort & 26.885.089 & 21.521.058 & 0,093 & 5.601.426 & 0 & 0,010 & 8.622.570 & 3.451.804 & 0,019 \\
+HeapSort & 17.397.767 & 9.024.461 & 0,070 & 17.837.785 & 9.355.700 & 0,048 & 16.977.997 & 8.668.450 & 0,047 \\
+MergeSort & 8.837.086 & 18.951.424 & 0,092 & 4.783.216 & 18.951.424 & 0,054 & 4.692.496 & 18.951.424 & 0,054 \\
+QuickSort (Centro) & 12.729.696 & 2.805.605 & 0,047 & 9.975.711 & 499.999 & 0,012 & 9.975.710 & 749.998 & 0,012 \\
+QuickSort (Fim) & 11.055.076 & 2.643.687 & 0,044 & $1.25 \times 10^{11}$ & 499.999 & \textbf{111,88} & $1.25 \times 10^{11}$ & 499.999 & \textbf{115,19} \\
+QuickSort (Mediana) & 12.531.711 & 2.942.659 & 0,049 & 11.475.708 & 499.999 & 0,014 & 11.475.707 & 750.000 & 0,015 \\
+RadixSort & 499.999 & 5.000.000 & 0,017 & 499.999 & 6.000.000 & 0,021 & 499.999 & 6.000.000 & 0,021 \\
+BucketSort & 499.999 & 500.000 & \textbf{0,0019} & 499.999 & 500.000 & \textbf{0,0023} & 499.999 & 500.000 & \textbf{0,0025} \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+\subsection{Análise dos Resultados}
+
+\subsubsection{Algoritmos de Complexidade Quadrática}
+\textbf{Bolha}
+
+O algoritmo de bolha apresentou o pior tempo de execução em todos os cenários testados, especialmente em vetores maiores.
+Isso se deve à sua complexidade de tempo O(n²), que o torna ineficiente para grandes conjuntos de dados.
+Mesmo com a otimização de parada antecipada, o desempenho não melhorou significativamente para vetores grandes, porém garantiu que no melhor caso (vetores já ordenados) o tempo de execução fosse praticamente desprezível.
+\\ \\
+\textbf{Seleção Direta}
+
+O SelectionSort também mostrou tempos de execução elevados, embora ligeiramente melhores que o BubbleSort.
+Ele se manteve estável nos piores e melhores casos. Em relação ao números de trocas, se manteve campeão entre os algoritmos quadráticos, realizando poucas substituições em todos os cenários.
+\\ \\
+\textbf{Inserção Direta}
+
+Se apresentou bem instável, tendo tempos extremamente díspares no melhor e pior caso.
+Isso se deve ao fato de que no melhor caso (vetores já ordenados), o algoritmo realiza poucas comparações e trocas, resultando em um tempo de execução muito baixo.
+No entanto, no pior caso (vetores inversamente ordenados), o número de comparações e trocas aumenta significativamente, levando a um tempo de execução muito maior.
+\\ \\
+\textbf{Binária e Ternária}
+
+Ambos os algoritmos apresentaram-se na média, os mais eficientes entre os algoritmos de complexidade quadrática.
+A Inserção Binária se saiu um pouco melhor que a Ternária, mas ambos tiveram desempenhos semelhantes.
+O gargalo foi o número de trocas, pois ambos os algoritmos ainda dependem do deslocamento dos elementos para inserir o 
+novo elemento na posição correta.
+
+\subsubsection{Algoritmos de complexidade Linearítmica}
+\textbf{ShellSort}
+
+Para o primeiro algoritmo eficiente analisado, o Shellsort apresentou resultados interessantes: números de trocas, comparações e tempos de execução relativamente 
+baixos em todos os cenários, bem menores do que os algoritmos quadráticos.
+isso se deve ao fato de que o ShellSort reduz significativamente o número de deslocamentos necessários para ordenar a lista, 
+especialmente em listas maiores, pois utiliza uma sequência de intervalos decrescentes para comparar elementos distantes.
+\\ \\
+\textbf{HeapSort}
+
+O HeapSport apresentou um desempenho consistente em todos os cenários testados. Seus números de comparações e trocas foram moderados, 
+e os tempos de execução foram razoáveis, embora não tão baixos quanto os algoritmos mais eficientes como o MergeSort e o QuickSort.
+\\ \\
+\textbf{MergeSort}
+
+O MergeSort demonstrou um desempenho sólido em todos os cenários, com números de comparações e trocas relativamente baixos.
+Se destacou por sua estabilidade e eficiência, especialmente em listas maiores, onde seu tempo de execução foi significativamente menor do que os 
+algoritmos quadráticos, porém ainda maior que os tempos do quicksort.
+\\ \\
+\textbf{QuickSort}
+
+Em relação às variações do quicksort, a escolha do pivô teve um impacto significativo no desempenho do algoritmo.
+O QuickSort com pivô no centro e o QuickSort com mediana apresentaram desempenhos semelhantes, ambos superando o QuickSort com pivô no fim.
+Isso se deve ao fato de que escolher o pivô no centro ou na mediana tende a resultar em partições mais equilibradas, o que é crucial para a eficiência do QuickSort.
+Porém, o pivô no fim pode levar a partições desbalanceadas, especialmente em listas já ordenadas ou quase ordenadas, resultando em um desempenho degradado próximo ao pior caso O(n²).
+
+\subsubsection{Algoritmos Lineares}
+\textbf{RadixSort}
+
+O RadixSort apresentou uma diferença enorme em comparação com os algoritmos anteriores. Ele demonstrou números de comparações muito baixos, 
+uma vez que sua complexidade é linear em relação ao número de elementos e ao número de dígitos nos elementos.
+\\ \\
+\textbf{BucketSort}
+
+O BucketSort foi o algoritmo mais eficiente em todos os cenários testados. Ele apresentou os menores números de comparações,
+trocas e tempos de execução. Isso se deve ao fato de que o BucketSort distribui os elementos em baldes e ordena cada balde individualmente,
+O que elimina a necessidade de busca e deslocamento extensivo de elementos.
+
+\section{Conclusão}
+A análise comparativa dos algoritmos de ordenação revelou diferenças significativas em termos de eficiência e desempenho.
+
+Os algoritmos de complexidade quadrática, como o BubbleSort e o SelectionSort, mostraram-se inadequados para grandes conjuntos de dados devido aos seus altos tempos de execução.
+Algoritmos quadráticos, como o BubbleSort, na verdade, não são utilizados em aplicações práticas devido à sua ineficiência, sendo mais relevantes apenas para fins educacionais. Como 
+constatou-se nas tabelas, o BubbleSort apresentou tempos de execução de cerca de 10000 vezes os tempos das versões do quicksort e mergesort para vetores de 500000 elementos.
+
+Já os algoritmos de complexidade linearítmica, como o MergeSort e o QuickSort, demonstraram ser escolhas sólidas para a maioria dos cenários, oferecendo um bom equilíbrio entre 
+complexidade e desempenho, com uma boa gerência dos custos computacionais empregados.
+
+Por fim, os algoritmos lineares, como o RadixSort e o BucketSort, apresentaram-se como os mais eficientes, especialmente para grandes volumes de dados. Porém, essa eficiência vem com alguns custos,
+como a grande quantidade de memória necessária para o BucketSort e a restrição a tipos específicos de dados para o RadixSort, uma vez que ele só pode ser aplicado a dados numéricos, 
+e portanto, esses algoritmos não são adequados para todos os casos.
+
+Sendo assim, dada a grande eficiência e baixos custos computacionais, algoritmos como o MergeSort e o QuickSort são amplamente utilizados em aplicações práticas, 
+sendo frequentemente a escolha padrão em bibliotecas de ordenação em diversas linguagens de programação, e frequentemente são encontrados, sozinhos 
+ou como combinações de dois ou mais algoritmos, em bibliotecas de ordenação usadas para aplicações que lidam com volumes gigantescos de dados.
+
+\begin{thebibliography}{9}
+
+\bibitem{Knuth}
+Knuth, D. (1998). \textit{The Art of Computer Programming, Volume 3: Sorting and Searching}. Addison-Wesley.
+
+\bibitem{Cormen}
+Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). \textit{Introduction to Algorithms}. MIT Press.
+
+\bibitem{Ziviani}
+Ziviani, N. (2011). \textit{Projeto de Algoritmos: com implementações em Pascal e C} (3ª ed.). Cengage Learning.
+
+\bibitem{Szwarcfiter}
+Szwarcfiter, J. L., & Markenzon, L. (2010). \textit{Estruturas de Dados e seus Algoritmos} (3ª ed.). LTC.
+
+\end{thebibliography}
+
+\section{Implementações dos Algoritmos}
+As implementações dos algoritmos de ordenação utilizados no estudo comparativo estão listadas a seguir
+
+\subsection{BubbleSort}:
+\lstinputlisting[linerange=inicio_bubbleSort-fim_bubbleSort]{../Programacao/ordenacoes.c}
+
+\subsection{BubbleSort com Parada}:
+\lstinputlisting[linerange=inicio_bubbleSortComParada-fim_bubbleSortComParada]{../Programacao/ordenacoes.c}
+
+\subsection{InsertionSort}:
+\lstinputlisting[linerange=inicio_insercaoDireta-fim_insercaoDireta]{../Programacao/ordenacoes.c}
+
+\subsection{BinarySort}:
+\lstinputlisting[linerange=inicio_insercaoBinaria-fim_insercaoBinaria]{../Programacao/ordenacoes.c}
+
+\subsection{TernarySort}:
+\lstinputlisting[linerange=inicio_insercaoTernaria-fim_insercaoTernaria]{../Programacao/ordenacoes.c}
+
+\subsection{SelectionSort}:
+\lstinputlisting[linerange=inicio_selecaoDireta-fim_selecaoDireta]{../Programacao/ordenacoes.c}
+
+\subsection{ShellSort}:
+\lstinputlisting[linerange=inicio_shellSort-fim_shellSort]{../Programacao/ordenacoes.c}
+
+\subsection{MergeSort}:
+\lstinputlisting[linerange=inicio_mergeSort-fim_mergeSort]{../Programacao/ordenacoes.c}
+
+\subsection{HeapSort}:
+\lstinputlisting[linerange=inicio_heapSort-fim_heapSort]{../Programacao/ordenacoes.c}
+
+\subsection{QuickSort (pivô no centro)}:
+\lstinputlisting[linerange=inicio_quickSort-fim_quickSort]{../Programacao/ordenacoes.c}
+
+\subsection{QuickSort (pivô no fim)}:
+\lstinputlisting[linerange=inicio_quickSortFim-fim_quickSortFim]{../Programacao/ordenacoes.c}
+
+\subsection{QuickSort (pivô na mediana)}:
+\lstinputlisting[linerange=inicio_quickSortMediana-fim_quickSortMediana]{../Programacao/ordenacoes.c}
+
+\subsection{RadixSort}:
+\lstinputlisting[linerange=inicio_radixSort-fim_radixSort]{../Programacao/ordenacoes.c}
+
+\subsection{BucketSort}:
+\lstinputlisting[linerange=inicio_bucketSort-fim_bucketSort]{../Programacao/ordenacoes.c}
+
+\end{document}
+
