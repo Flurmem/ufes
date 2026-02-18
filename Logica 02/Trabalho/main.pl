@@ -1,40 +1,3 @@
-% Molécula: Ácido Glioxílico (s3)
-atomo(s3, c1, carbono).
-atomo(s3, c2, carbono).
-atomo(s3, o1, oxigenio). % da carbonila do ácido
-atomo(s3, o2, oxigenio). % da hidroxila do ácido
-atomo(s3, o3, oxigenio). % do aldeído
-atomo(s3, h1, hidrogenio). % da hidroxila
-atomo(s3, h2, hidrogenio). % do aldeído
-
-% Ligações do Grupo Ácido (C1)
-ligacaodupla(s3, c1, o1).
-ligacaosimples(s3, c1, o2).
-ligacaosimples(s3, o2, h1).
-
-% Ligação entre carbonos
-ligacaosimples(s3, c1, c2).
-
-% Ligações do Grupo Aldeído (C2)
-ligacaodupla(s3, c2, o3).
-ligacaosimples(s3, c2, h2).
-
-%Molecula Simples 11 (Haleto Iodo)
-
-atomo(s11,h1,hidrogenio).
-atomo(s11,h2,hidrogenio).
-atomo(s11,h3,hidrogenio).
-atomo(s11,c,carbono).
-atomo(s11,i,iodo).
-
-ligacaosimples(s11,h1,c).
-ligacaosimples(s11,h2,c).
-ligacaosimples(s11,h3,c).
-ligacaosimples(s11,c,i).
-
-ligacaodupla(xx,a,b).
-ligacaotripla(xx,a,b).
-
 %Molecula Simples 12 (Nada)
 
 atomo(s12,h1,hidrogenio).
@@ -132,11 +95,22 @@ alcool(X) :-
     ligacaosimples(X, O, H).
 
 haleto(X) :-
-    atomo(X, f, fluor); 
-    atomo(X, cl, cloro);
-    atomo(X, b, bromo);
-    atomo(X, i, iodo).
+    haleto_fluor(X);
+    haleto_cloro(X);
+    haleto_bromo(X);
+    haleto_iodo(X).
 
+haleto_fluor(X) :-
+    atomo(X, _, fluor).
+
+haleto_cloro(X) :-
+    atomo(X, _, cloro).
+
+haleto_bromo(X) :-
+    atomo(X, _, bromo).
+
+haleto_iodo(X) :-
+    atomo(X, _, iodo).
 
 testa_todos(X) :-
     % 1. ÁCIDO CARBOXÍLICO
@@ -193,9 +167,14 @@ testa_todos(X) :-
     % 6. HALETO
     (   haleto(X) 
     ->  (   S5 == principal
-        ->  write('Grupo Principal: Haleto'), nl, write(' Sufixo: o'), nl,
+        ->  write('Grupo Principal: Haleto, Sufixo: eto'), nl,
             S6 = secundario
-        ;   write('Grupo Secundario: Haleto, Sufixo: fluor/cloro...'), nl, 
+        ;
+            (   haleto_fluor(X) -> write('Grupo Secundario: Haleto, Sufixo: fluoro'), nl;
+                haleto_cloro(X) -> write('Grupo Secundario: Haleto, Sufixo: cloro'), nl;
+                haleto_bromo(X) -> write('Grupo Secundario: Haleto, Sufixo: bromo'), nl;
+                haleto_iodo(X)  -> write('Grupo Secundario: Haleto, Sufixo: iodo'), nl
+            ), 
             S6 = secundario
         )
     ;   S6 = S5
