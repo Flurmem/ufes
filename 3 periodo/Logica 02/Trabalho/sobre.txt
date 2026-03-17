@@ -1,0 +1,7 @@
+Integrantes do grupo: Pedro Henrique Vargas, Flávia Lira e Gabriel Gaspar
+
+Tutorial:
+
+Ao rodar o arquivo principal ("main.pl") utilizando o compilador de preferência, carregue o arquivo da molécula
+usando o comando [meu_exemplo].
+Após carregar a molécula, utilize a função "testa_todos(meu_exemplo)" passando o nome da molecula criada para gerar os resultados.
