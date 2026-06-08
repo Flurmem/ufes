@@ -1,0 +1,174 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: white !important;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white !important;
+    flex:1;
+    width: 80cqi;
+    color: black;
+    padding: 30px 10px 0 0;
+}
+
+main > div{
+    width: 100cqd;
+    padding: 30px 0 0 0 ;
+}
+
+.faixaLogo{
+    width: 100cqi;
+    padding: 0px;
+    background-color: #2A9D8F;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px 0 10px 0;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: inidex;
+    color: white;
+
+}
+
+.logo{
+    font-size: 40px;
+    font-family: Krona One;
+}
+
+.navbar{
+    display: flex;
+    width: 100%;
+}
+
+.nomeHospital{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.painelEmergencias{
+    width: 100%;
+}
+
+.cabecalhoEmergencias{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+
+    padding: 1rem 0;
+}
+
+.Emergencias{
+    display: flex;
+    justify-content: flex-start;
+    gap: 4rem;
+    padding-top: 40px;
+    
+}
+
+.cardEmergencia{
+    border: #2A9D8F;
+    box-shadow: 1px 4px 6px 0px rgb(157, 149, 149);
+    display: flex;
+    aspect-ratio: 16/9;
+    height: 16rem;
+    border-radius: 10px 40px 40px 10px;
+}
+
+.colorCard{
+    border-radius: 10px 0 0 10px;
+    /* box-shadow: inherit; */
+    background-color: red;
+    height: 100%;
+    aspect-ratio: 2/9;
+}
+
+.conteudoCard{
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
+    align-content: center;
+    gap: .5rem;
+}
+
+.infos{
+    flex-grow:1;
+    width: 70%;
+}
+
+.info{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.textoInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.detalhes{
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+    width: 100%;
+    padding: 0 1.5rem 0 0;
+}
+
+.botaoDetalhe{
+    /* width: 50%; */
+    box-shadow: .5px 2px 6px 0.5px black;
+    height: 2.5rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    background: #2A9D8F;
+    padding: 1.5rem 3rem;
+
+    transition: transform 0.15s ease-in-out;
+
+}
+
+.botaoDetalhe:hover{
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.textoDetalhes{
+    /* width: 100%; */
+    color: white;
+}
+
+.headCard{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
