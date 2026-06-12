@@ -3,6 +3,10 @@
     src: url("../static/fontes/Hannari-Regular.ttf") format('truetype');
 }
 
+:root{
+    --tamanhoCardEmergencia: 25.2rem;
+}
+
 .krona-one-regular {
     font-family: "Krona One", sans-serif;
     font-weight: 400;
@@ -42,7 +46,7 @@ main {
     flex: 1;
     width: 90cqi;
     color: black;
-    padding: 1rem .5rem;
+    padding: 0rem .5rem;
 }
 
 .marcadorGravidade {
@@ -132,11 +136,10 @@ header {
 
 .faixaLogo {
     color: white;
-    padding: .5rem;
-    background-color: #2A9D8F;
+    /* padding: .5rem 0 0 0; */
     width: 100%;
     flex: 1;
-    box-shadow: 1px 1px 1px 1px gray;
+    /* box-shadow: 1px 1px 1px 1px gray; */
 }
 
 .logo {
@@ -189,7 +192,7 @@ header {
     justify-content: space-between;
     /* border-bottom: 1px solid rgb(189, 189, 189); */
 
-    padding: 3rem 0 0 0;
+    padding: 2rem 0 0 0;
 }
 
 .containerFiltro {
@@ -206,10 +209,9 @@ header {
     flex-wrap: wrap;
     row-gap: 3rem;
     column-gap: 2rem; */
-    width: 90%;
-    max-width: 1450px;
+    width: clamp(480px, calc(3*var(--tamanhoCardEmergencia) + 2.5rem*2), 95%);
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+    grid-template-columns: repeat(auto-fit, var(--tamanhoCardEmergencia));
     gap: 2.5rem;
     padding: 1rem 0;
     justify-items: center;
@@ -222,12 +224,13 @@ header {
         grid-template-columns: 1fr; 
     }
 }
+
 .cardEmergencia {
     border: #2A9D8F;
     box-shadow: -1px 3px 6px 0px rgb(190, 190, 190);
     display: flex;
-    aspect-ratio: 16/9;
-    height: clamp(16rem, 17rem, 17rem);
+    aspect-ratio: 14/9;
+    width: var(--tamanhoCardEmergencia);
     border-radius: 5px 10px 10px 5px;
     background-color: rgb(255, 255, 255);
 
@@ -295,10 +298,10 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 1rem 0 0 0;
     flex-grow: 1;
     width: 100%;
     min-width: 0;
-    padding: 1.5rem;
 }
 
 .info {
@@ -308,7 +311,7 @@ header {
     justify-content: space-between;
     align-items: start;
     padding: .5rem;
-    gap: 3rem;
+    gap: 1rem;
 }
 
 .iconeInfo {
@@ -334,6 +337,7 @@ header {
 }
 
 .textoInfo p {
+    max-width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -635,4 +639,13 @@ header {
         opacity: 1;
         transform: translate(40px, 35px);
     }
+}
+
+.w-100{
+    width: 100%;
+}
+
+.containerLogo{
+    /* padding: 0.2rem 0 0 0; */
+    background-color: #2A9D8F;
 }
