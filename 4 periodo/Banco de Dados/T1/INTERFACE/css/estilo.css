@@ -4,8 +4,16 @@
 }
 
 :root{
-    --tamanhoCardEmergencia: 25.2rem;
+    --tamanhoCardEmergencia: 30rem;
 }
+
+@media screen and (max-width: 1400px)  {
+    :root{
+    --tamanhoCardEmergencia: 24.2rem;
+}
+
+}
+
 
 .krona-one-regular {
     font-family: "Krona One", sans-serif;
@@ -29,12 +37,12 @@ html {
 }
 
 body {
-    font-family: 'Hannari', sans-serif;
+    font-family: 'Dosis', sans-serif;
     display: flex;
     flex-direction: column;
     flex: 1;
     align-items: center;
-    font-size: 0.8rem;
+    font-size: 0.95rem;
 
 }
 
@@ -57,7 +65,7 @@ main {
     max-width: 3rem;
     height: 4rem;
         /* aspect-ratio: 0.9; */
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 50px 50px;
 }
 
 
@@ -143,10 +151,11 @@ header {
 }
 
 .logo {
+    padding: .1rem 0 0 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-family: 'Krona One';
     flex: 1;
 }
@@ -165,10 +174,10 @@ header {
 
 .navbar {
     display: flex;
-    width: 100%;
+    width: clamp(480px, calc(3*var(--tamanhoCardEmergencia) + 2.5rem*2), 95%);
     justify-content: space-between;
     padding-bottom: 1rem;
-    border-bottom: 1px solid rgb(211, 211, 211);
+    border-bottom: 1px solid rgb(229, 229, 229);
 }
 
 .nomeHospital {
@@ -188,7 +197,7 @@ header {
 
 .cabecalhoEmergencias {
     display: flex;
-    width: clamp(700px, 100%, 1500px);
+    width: clamp(480px, calc(3*var(--tamanhoCardEmergencia) + 2.5rem*2), 95%);
     justify-content: space-between;
     /* border-bottom: 1px solid rgb(189, 189, 189); */
 
@@ -200,7 +209,28 @@ header {
     display: flex;
     align-items: end;
     justify-content: center;
+    background-color: #e9e9e9;
+    padding: .3rem;
+    border-radius: 10px;
+    gap: 0.2rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+     
 }
+
+.containerFiltro:hover{
+    transform: scale(1.1);
+}
+
+.containerFiltro svg{
+    background-color: #cfcfcf;
+    padding: 0.2rem;
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+}
+
+
 
 .Emergencias {
 
@@ -226,12 +256,13 @@ header {
 }
 
 .cardEmergencia {
+    font-size: .9rem;
     border: #2A9D8F;
-    box-shadow: -1px 3px 6px 0px rgb(190, 190, 190);
+    box-shadow: 0px 0px 20px 0px rgb(212 212 212);
     display: flex;
-    aspect-ratio: 14/9;
+    aspect-ratio: 12/8.5;
     width: var(--tamanhoCardEmergencia);
-    border-radius: 5px 10px 10px 5px;
+    border-radius: 10px;
     background-color: rgb(255, 255, 255);
 
     overflow: hidden;
@@ -267,11 +298,11 @@ header {
 } */
 
 .grave {
-    background: linear-gradient(135deg, #ff0000 0%, #ff55008d 100%);
+    background: linear-gradient(135deg, #ff0000 0%, #ffb300d3 100%);
 }
 
 .moderado {
-    background: linear-gradient(135deg, #ff7700 0%, #ffb3009f 100%);
+    background: linear-gradient(135deg, #ff7700 0%, #ffdd009f 100%);
 }
 
 .leve {
@@ -298,18 +329,22 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 1rem 0 0 0;
+    padding: 0.5rem 0;
     flex-grow: 1;
     width: 100%;
     min-width: 0;
+    border-radius: 10px;
+    /* box-shadow: 0px 0px 20px 0px gray; */
 }
 
 .info {
+    box-shadow: 0px 2px 20px 2px #f1f1f1;
+    border-radius: 10px;
+    margin: 0.25rem 0;
     display: flex;
     width: 100%;
     min-width: 0;
     justify-content: space-between;
-    align-items: start;
     padding: .5rem;
     gap: 1rem;
 }
@@ -317,30 +352,44 @@ header {
 .iconeInfo {
     color: black;
     display: flex;
-    height: 100%;
+    /* height: 100%; */
+    border-radius: 10px;
+    padding: 0.5rem;
     align-items: center;
     justify-content: center;
     flex: 1;
+    background-color: #f0f0f0;
 }
 
-.textoInfo {
+
+.containerTextoInfo {
     width: 100%;
     min-width: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    gap: 0.2rem;
 }
 
-.textoInfo strong {
-    font-size: .85rem;
+.containerTextoInfo strong {
+    font-size: 1.05rem;
 }
 
-.textoInfo p {
+.containerTextoInfo p {
+    color: rgb(85, 85, 85);
     max-width: 100%;
+    font-size: .95rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.flexColumn{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
 }
 
 .detalhes {
@@ -364,6 +413,7 @@ header {
     background: #2A9D8F;
     color: white;
     padding: 1.2rem 0rem;
+    font-weight: bold;
 
     transition: transform 0.15s ease-in-out;
 
@@ -428,6 +478,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-height: 23.2px;
 }
 
 .containerFiltro {
@@ -442,6 +493,9 @@ header {
     align-items: start;
     min-width: 0;
     gap: .4rem;
+    background-color: rgb(240, 240, 240);
+    border-radius: 20px;
+    padding: 0.2rem 0.4rem;
 }
 
 .tempo p {
@@ -454,11 +508,15 @@ header {
     display: flex;
     justify-content: center;
     align-items: start;
-    gap: .5rem;
+    gap: .3rem;
     color: red;
-    animation: pulsar 2s infinite ease-in-out;
+    /* animation: pulsar 2s infinite ease-in-out; */
     transform-origin: center;
     cursor: pointer;
+}
+
+.iconNotif{
+    animation: pulsar 1s infinite ease-in-out;
 }
 
 
@@ -481,6 +539,10 @@ header {
     display: flex;
     flex: 1;
     transition: transform 0.3s cubic-bezier(0, 0, 0.58, 1);
+}
+
+.notifContainer p{
+    font-weight: bold;
 }
 
 .escondido {
@@ -551,14 +613,14 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: .5rem;
+    gap: .4rem;
 }
 
 .containerHora{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: .5rem;
+    gap: .4rem;
 }
 
 .flex{
@@ -572,7 +634,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.2rem;
 }
 
 .itensMenu{
@@ -645,7 +707,22 @@ header {
     width: 100%;
 }
 
+.h-100{
+    height: 100%;
+}
+
 .containerLogo{
     /* padding: 0.2rem 0 0 0; */
     background-color: #2A9D8F;
+}
+
+.infoTempo{
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.iconeCabecalho {
+    width: 35px; /* Ajuste o tamanho aqui */
+    height: 35px;
+    color: #1f2937; /* Um cinza bem escuro, quase preto, fica mais elegante que o preto puro */
 }
